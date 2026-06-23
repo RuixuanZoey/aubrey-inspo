@@ -33,26 +33,40 @@ const { title, image, style, colorScheme, layout, note, source } = inspiration.d
     
     <div class="flex flex-wrap gap-1.5">
       <!-- 风格标签 -->
-      <span class={`inline-block px-2 py-0.5 text-xs rounded-full font-medium ${
-        style === '商业' ? 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200' :
-        style === '科技' ? 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-200' :
-        style === '简约' ? 'bg-slate-100 text-slate-800 dark:bg-slate-900 dark:text-slate-200' :
-        'bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200'
-      }`}>
-        {style}
-      </span>
+      { style === '商业' ? (
+        <span class="inline-block px-2 py-0.5 text-xs rounded-full font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200">{style}</span>
+      ) : style === '科技' ? (
+        <span class="inline-block px-2 py-0.5 text-xs rounded-full font-medium bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-200">{style}</span>
+      ) : style === '自然' ? (
+        <span class="inline-block px-2 py-0.5 text-xs rounded-full font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">{style}</span>
+      ) : style === '赛博朋克' ? (
+        <span class="inline-block px-2 py-0.5 text-xs rounded-full font-medium bg-fuchsia-100 text-fuchsia-800 dark:bg-fuchsia-900 dark:text-fuchsia-200">{style}</span>
+      ) : style === '创意' ? (
+        <span class="inline-block px-2 py-0.5 text-xs rounded-full font-medium bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200">{style}</span>
+      ) : style === '复古' ? (
+        <span class="inline-block px-2 py-0.5 text-xs rounded-full font-medium bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200">{style}</span>
+      ) : (
+        <span class="inline-block px-2 py-0.5 text-xs rounded-full font-medium bg-slate-100 text-slate-800 dark:bg-slate-900 dark:text-slate-200">{style}</span>
+      ) }
 
       <!-- 色系标签 -->
-      <span class={`inline-block px-2 py-0.5 text-xs rounded-full font-medium ${
-        colorScheme === '紫' ? 'bg-violet-100 text-violet-800 dark:bg-violet-900 dark:text-violet-200' :
-        colorScheme === '绿' ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200' :
-        colorScheme === '蓝' ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200' :
-        colorScheme === '橙' ? 'bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200' :
-        colorScheme === '黑灰' ? 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200' :
-        'bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200'
-      }`}>
-        {colorScheme}
-      </span>
+      { colorScheme === '紫' ? (
+        <span class="inline-block px-2 py-0.5 text-xs rounded-full font-medium bg-violet-100 text-violet-800 dark:bg-violet-900 dark:text-violet-200">{colorScheme}</span>
+      ) : colorScheme === '绿' ? (
+        <span class="inline-block px-2 py-0.5 text-xs rounded-full font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200">{colorScheme}</span>
+      ) : colorScheme === '蓝' ? (
+        <span class="inline-block px-2 py-0.5 text-xs rounded-full font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">{colorScheme}</span>
+      ) : colorScheme === '橙' ? (
+        <span class="inline-block px-2 py-0.5 text-xs rounded-full font-medium bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200">{colorScheme}</span>
+      ) : colorScheme === '黑灰' ? (
+        <span class="inline-block px-2 py-0.5 text-xs rounded-full font-medium bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200">{colorScheme}</span>
+      ) : colorScheme === '黄' ? (
+        <span class="inline-block px-2 py-0.5 text-xs rounded-full font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">{colorScheme}</span>
+      ) : colorScheme === '粉' ? (
+        <span class="inline-block px-2 py-0.5 text-xs rounded-full font-medium bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200">{colorScheme}</span>
+      ) : (
+        <span class="inline-block px-2 py-0.5 text-xs rounded-full font-medium bg-slate-100 text-slate-800 dark:bg-slate-900 dark:text-slate-200">{colorScheme}</span>
+      ) }
 
       <!-- 板式标签 -->
       <span class="inline-block px-2 py-0.5 text-xs rounded-full font-medium bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200">
