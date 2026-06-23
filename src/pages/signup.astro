@@ -1,0 +1,286 @@
+---
+// 独立注册/登录页面，不受 Decap CMS 干扰
+---
+
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>注册 / 登录 | AubreyInspo</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 40px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #111;
+    }
+    .subtitle {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 28px;
+    }
+    .tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 24px;
+      border-bottom: 2px solid #e5e7eb;
+    }
+    .tab {
+      flex: 1;
+      text-align: center;
+      padding: 10px 0;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      background: none;
+      color: #999;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .tab.active {
+      color: #4f46e5;
+      border-bottom-color: #4f46e5;
+    }
+    .form-group {
+      margin-bottom: 18px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 6px;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 10px 14px;
+      font-size: 15px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .form-group input:focus {
+      border-color: #4f46e5;
+      box-shadow: 0 0 0 3px rgba(79,70,229,0.1);
+    }
+    .btn {
+      width: 100%;
+      padding: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      color: white;
+      background: #4f46e5;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn:hover { background: #4338ca; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .msg {
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      margin-bottom: 16px;
+      display: none;
+    }
+    .msg.error { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; display: block; }
+    .msg.success { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; display: block; }
+    .msg.info { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; display: block; }
+
+    .back-link {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 13px;
+    }
+    .back-link a {
+      color: #6b7280;
+      text-decoration: underline;
+    }
+  </style>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+<div class="card">
+  <h1>内容管理后台</h1>
+  <p class="subtitle" id="status-text">注册新账号或登录已有账号</p>
+
+  <div class="tabs" id="tab-bar">
+    <button class="tab active" onclick="switchTab('signup')">注册</button>
+    <button class="tab" onclick="switchTab('login')">登录</button>
+  </div>
+
+  <div class="msg" id="msg"></div>
+
+  <!-- 注册表单 -->
+  <form id="signup-form" onsubmit="handleSignup(event)">
+    <div class="form-group">
+      <label for="signup-email">邮箱</label>
+      <input type="email" id="signup-email" placeholder="you@example.com" required>
+    </div>
+    <div class="form-group">
+      <label for="signup-password">密码</label>
+      <input type="password" id="signup-password" placeholder="至少 6 位" minlength="6" required>
+    </div>
+    <button type="submit" class="btn" id="signup-btn">注册</button>
+  </form>
+
+  <!-- 登录表单（默认隐藏） -->
+  <form id="login-form" style="display:none" onsubmit="handleLogin(event)">
+    <div class="form-group">
+      <label for="login-email">邮箱</label>
+      <input type="email" id="login-email" placeholder="you@example.com" required>
+    </div>
+    <div class="form-group">
+      <label for="login-password">密码</label>
+      <input type="password" id="login-password" placeholder="输入密码" required>
+    </div>
+    <button type="submit" class="btn" id="login-btn">登录</button>
+  </form>
+
+  <div class="back-link">
+    <a href="/admin/">← 返回后台</a>
+  </div>
+</div>
+
+<script>
+var currentTab = 'signup';
+
+function switchTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.tab').forEach(function(t, i) {
+    t.classList.toggle('active', (i === 0 && tab === 'signup') || (i === 1 && tab === 'login'));
+  });
+  document.getElementById('signup-form').style.display = (tab === 'signup') ? 'block' : 'none';
+  document.getElementById('login-form').style.display = (tab === 'login') ? 'block' : 'none';
+  document.getElementById('msg').className = 'msg';
+}
+
+function showMsg(type, text) {
+  var m = document.getElementById('msg');
+  m.className = 'msg ' + type;
+  m.textContent = text;
+}
+
+// 方法 1：尝试使用 Identity Widget open() 触发原生 UI
+// 方法 2：降级到 GoTrue API 直接调用
+function handleSignup(e) {
+  e.preventDefault();
+  var email = document.getElementById('signup-email').value;
+  var password = document.getElementById('signup-password').value;
+  if (!email || !password) return;
+
+  var btn = document.getElementById('signup-btn');
+  btn.disabled = true;
+  btn.textContent = '注册中...';
+
+  // 先用 GoTrue API 试试
+  fetch('/.netlify/identity/signup', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: email, password: password })
+  })
+  .then(function(res) {
+    return res.text().then(function(body) {
+      try { return { status: res.status, data: JSON.parse(body) }; }
+      catch(_) { return { status: res.status, data: body }; }
+    });
+  })
+  .then(function(result) {
+    if (result.status === 200) {
+      showMsg('success', '注册成功！确认邮件已发送至 ' + email + '，请查收并点击确认链接，然后回到此页面登录。');
+      switchTab('login');
+      document.getElementById('login-email').value = email;
+    } else if (result.status === 422) {
+      showMsg('error', '邮箱已被注册，请直接登录或换一个邮箱。');
+      switchTab('login');
+      document.getElementById('login-email').value = email;
+    } else {
+      showMsg('error', '注册失败：' + (JSON.stringify(result.data) || '未知错误'));
+    }
+  })
+  .catch(function(err) {
+    showMsg('error', '网络错误，请稍后重试。');
+  })
+  .finally(function() {
+    btn.disabled = false;
+    btn.textContent = '注册';
+  });
+}
+
+function handleLogin(e) {
+  e.preventDefault();
+  var email = document.getElementById('login-email').value;
+  var password = document.getElementById('login-password').value;
+  if (!email || !password) return;
+
+  var btn = document.getElementById('login-btn');
+  btn.disabled = true;
+  btn.textContent = '登录中...';
+
+  fetch('/.netlify/identity/token?grant_type=password', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: email, password: password })
+  })
+  .then(function(res) {
+    return res.text().then(function(body) {
+      try { return { status: res.status, data: JSON.parse(body) }; }
+      catch(_) { return { status: res.status, data: body }; }
+    });
+  })
+  .then(function(result) {
+    if (result.status === 200 && result.data.access_token) {
+      // 登录成功，使用 Identity Widget 确认登录状态
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.open('login');
+        // 等 widget 完成登录
+        window.netlifyIdentity.on('login', function() {
+          document.location.href = '/admin/';
+        });
+        // 如果 widget 没触发，1 秒后直接跳转
+        setTimeout(function() {
+          document.location.href = '/admin/';
+        }, 1500);
+      } else {
+        document.location.href = '/admin/';
+      }
+    } else if (result.status === 400) {
+      showMsg('error', '邮箱或密码错误，请重试。');
+    } else {
+      showMsg('error', '登录失败：' + (JSON.stringify(result.data) || '未知错误'));
+    }
+  })
+  .catch(function(err) {
+    showMsg('error', '网络错误，请稍后重试。');
+  })
+  .finally(function() {
+    btn.disabled = false;
+    btn.textContent = '登录';
+  });
+}
+</script>
+</body>
+</html>
