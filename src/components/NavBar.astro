@@ -1,0 +1,22 @@
+---
+// src/components/NavBar.astro
+---
+
+<nav class="bg-white dark:bg-gray-800 shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16">
+      <div class="flex items-center">
+        <a href="/" class="flex items-center gap-2">
+          <span class="text-xl font-bold text-gray-900 dark:text-white">AubreyInspo</span>
+        </a>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="/admin/" class="text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+          管理后台
+        </a>
+        <!-- ThemeToggle 会插入到这里 -->
+        <slot name="theme-toggle" />
+      </div>
+    </div>
+  </div>
+</nav>

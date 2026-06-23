@@ -1,0 +1,43 @@
+---
+// src/layouts/BaseLayout.astro
+import NavBar from '../components/NavBar.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
+
+export interface Props {
+  title?: string;
+  description?: string;
+}
+const { title = 'AubreyInspo', description = 'Aubrey 的 PPT 灵感库' } = Astro.props;
+---
+
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    
+    {/* 防闪烁脚本 - 在页面加载前读取主题偏好 */}
+    <script is:inline>
+      (function() {
+        const theme = localStorage.getItem('theme');
+        if (theme === 'dark' || 
+            (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+    
+    {/* 引入全局样式 */}
+    <link rel="stylesheet" href="/src/styles/global.css" />
+  </head>
+  <body class="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors">
+    <NavBar>
+      <ThemeToggle slot="theme-toggle" />
+    </NavBar>
+    
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <slot /><!-- 页面内容插入点 -->
+    </main>
+  </body>
+</html>

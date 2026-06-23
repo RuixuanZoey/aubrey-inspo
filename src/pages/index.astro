@@ -1,0 +1,24 @@
+---
+// src/pages/index.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="AubreyInspo - PPT 灵感库">
+  <section class="text-center py-12">
+    <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+      AubreyInspo
+    </h1>
+    <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+      Aubrey 的 PPT 审美灵感库 —— 收集优质设计碎片，激发创作灵感
+    </p>
+    <p class="mt-4 text-sm text-gray-500 dark:text-gray-400">
+      当前共有 <span id="count" class="font-semibold">0</span> 个灵感
+    </p>
+  </section>
+
+  <section class="mt-8 text-center">
+    <p class="text-gray-500 dark:text-gray-400">
+      功能开发中... 瀑布流画廊、标签筛选、Lightbox 预览即将上线
+    </p>
+  </section>
+</BaseLayout>

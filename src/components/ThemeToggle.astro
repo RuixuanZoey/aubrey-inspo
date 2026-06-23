@@ -1,0 +1,21 @@
+---
+// src/components/ThemeToggle.astro
+---
+
+<button
+  id="theme-toggle"
+  class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+  aria-label="切换主题"
+>
+  <span class="dark:hidden">🌙</span>
+  <span class="hidden dark:inline">☀️</span>
+</button>
+
+<script>
+  function toggleTheme() {
+    const isDark = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  }
+  
+  document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
+</script>
