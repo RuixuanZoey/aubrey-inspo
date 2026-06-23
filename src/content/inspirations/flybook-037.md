@@ -1,12 +1,12 @@
 ---
-title: "科技·绿·Roadmap"
+title: "科技·绿色·Roadmap"
 image: "/images/inspirations/flybook-037.png"
 style: "科技"
 colorScheme: "绿"
 layout: "Roadmap"
-note: "飞书导入 #37"
+note: ""
 source: ""
 createdAt: 2026-06-23T00:00:00.000Z
 ---
 
-科技·绿·Roadmap
+Roadmap

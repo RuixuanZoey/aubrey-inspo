@@ -1,5 +1,5 @@
 ---
-title: "商业·橙·目录"
+title: "商业·橙色·目录"
 image: "/images/inspirations/flybook-053.png"
 style: "商业"
 colorScheme: "橙"
@@ -9,4 +9,4 @@ source: ""
 createdAt: 2026-06-23T00:00:00.000Z
 ---
 
-商业·橙·目录
+目录

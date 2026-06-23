@@ -1,5 +1,5 @@
 ---
-title: "科技·橙·引言"
+title: "科技·橙色·引言"
 image: "/images/inspirations/flybook-026.png"
 style: "科技"
 colorScheme: "橙"
@@ -9,4 +9,4 @@ source: ""
 createdAt: 2026-06-23T00:00:00.000Z
 ---
 
-科技·橙·引言
+引言

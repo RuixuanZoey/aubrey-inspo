@@ -1,5 +1,5 @@
 ---
-title: "赛博朋克·黑灰·封面封底"
+title: "赛博朋克·黑灰色·封面封底"
 image: "/images/inspirations/flybook-036.png"
 style: "赛博朋克"
 colorScheme: "黑灰"
@@ -9,4 +9,4 @@ source: ""
 createdAt: 2026-06-23T00:00:00.000Z
 ---
 
-赛博朋克·黑灰·封面封底
+封面封底

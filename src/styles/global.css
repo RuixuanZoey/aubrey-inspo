@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Tailwind CSS v4: 启用 class-based 暗色模式 */
+@variant dark (&:where(.dark, .dark *));
+
 /* 全局过渡动画 */
 * {
   transition-property: background-color, border-color, color, fill, stroke;

@@ -8,9 +8,20 @@ public_folder: /images/inspirations
 collections:
   - name: inspirations
     label: 灵感碎片
+    label_singular: 灵感碎片
     folder: src/content/inspirations
     create: true
-    slug: "{{fields.style}}-{{fields.colorScheme}}-{{fields.layout}}-{{slug}}"
+    slug: "{{fields.title}}"
+    summary: "{{style}} | {{colorScheme}} | {{layout}}"
+    
+    view_groups:
+      - label: 按风格分组
+        field: style
+      - label: 按色系分组
+        field: colorScheme
+      - label: 按板式分组
+        field: layout
+    
     fields:
       - { name: title, label: 标题, widget: string }
       - { name: image, label: 截图, widget: image }

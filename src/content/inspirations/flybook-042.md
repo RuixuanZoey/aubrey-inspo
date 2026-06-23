@@ -1,5 +1,5 @@
 ---
-title: "创意·橙·封面封底"
+title: "创意·橙色·封面封底"
 image: "/images/inspirations/flybook-042.png"
 style: "创意"
 colorScheme: "橙"
@@ -9,4 +9,4 @@ source: ""
 createdAt: 2026-06-23T00:00:00.000Z
 ---
 
-创意·橙·封面封底
+封面封底

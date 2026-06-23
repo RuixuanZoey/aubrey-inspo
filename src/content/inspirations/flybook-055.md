@@ -1,5 +1,5 @@
 ---
-title: "科技·绿·总分关系"
+title: "科技·绿色·总分关系"
 image: "/images/inspirations/flybook-055.png"
 style: "科技"
 colorScheme: "绿"
@@ -9,4 +9,4 @@ source: ""
 createdAt: 2026-06-23T00:00:00.000Z
 ---
 
-科技·绿·总分关系
+总分关系
