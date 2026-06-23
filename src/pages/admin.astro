@@ -9,8 +9,55 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Content Manager | AubreyInspo</title>
+  <style>
+    #signup-hint {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 14px;
+      color: #666;
+      background: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    #signup-hint a {
+      color: #4f46e5;
+      text-decoration: underline;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    #signup-hint a:hover {
+      color: #3730a3;
+    }
+    /* 深色模式适配 */
+    @media (prefers-color-scheme: dark) {
+      #signup-hint {
+        background: #1f2937;
+        color: #d1d5db;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+      }
+      #signup-hint a {
+        color: #818cf8;
+      }
+    }
+  </style>
 </head>
 <body>
+  <!-- 注册/登录提示条 -->
+  <div id="signup-hint">
+    <span>首次使用？</span>
+    <a id="signup-link">点击注册账号</a>
+    <span>|</span>
+    <a id="login-link">已有账号？登录</a>
+  </div>
+
   <!-- 1. Netlify Identity 必须先加载 -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   
@@ -19,12 +66,23 @@
   
   <!-- 3. 登录成功后的重定向处理 -->
   <script>
+    document.getElementById('signup-link').addEventListener('click', function() {
+      window.netlifyIdentity.open('signup');
+    });
+    document.getElementById('login-link').addEventListener('click', function() {
+      window.netlifyIdentity.open('login');
+    });
+
     if (window.netlifyIdentity) {
       window.netlifyIdentity.on("init", function(user) {
         if (!user) {
           window.netlifyIdentity.on("login", function() {
             document.location.href = "/admin/";
           });
+        }
+        // 登录后隐藏提示条
+        if (user) {
+          document.getElementById('signup-hint').style.display = 'none';
         }
       });
     }
