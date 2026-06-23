@@ -1,0 +1,99 @@
+---
+// src/components/MasonryGallery.astro
+import InspirationCard from './InspirationCard.astro';
+
+interface Props {
+  inspirations: any[];
+}
+
+const { inspirations } = Astro.props;
+---
+
+<div class="masonry-gallery" id="masonry-gallery">
+  {inspirations.map((inspiration, index) => (
+    <InspirationCard inspiration={inspiration} index={index} />
+  ))}
+</div>
+
+<script>
+  // 事件委托：监听卡片点击
+  const gallery = document.getElementById('masonry-gallery');
+  if (gallery) {
+    gallery.addEventListener('click', (e) => {
+      const card = e.target.closest('.inspiration-card');
+      if (card) {
+        const index = parseInt(card.dataset.index);
+        const event = new CustomEvent('open-lightbox', { 
+          detail: { index } 
+        });
+        window.dispatchEvent(event);
+      }
+    });
+  }
+</script>
+
+<style>
+  .masonry-gallery {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .masonry-gallery {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .masonry-gallery {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .masonry-gallery {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  /* Masonry layout (if browser supports it) */
+  @supports (grid-template-rows: masonry) {
+    .masonry-gallery {
+      grid-template-rows: masonry;
+    }
+  }
+
+  /* Fallback: CSS columns for true masonry effect */
+  @supports not (grid-template-rows: masonry) {
+    .masonry-gallery {
+      display: block;
+      column-count: 1;
+      column-gap: 1.5rem;
+    }
+
+    .masonry-gallery :global(.inspiration-card) {
+      break-inside: avoid;
+      margin-bottom: 1.5rem;
+    }
+
+    @media (min-width: 640px) {
+      .masonry-gallery {
+        column-count: 2;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .masonry-gallery {
+        column-count: 3;
+      }
+    }
+
+    @media (min-width: 1280px) {
+      .masonry-gallery {
+        column-count: 4;
+      }
+    }
+  }
+</style>

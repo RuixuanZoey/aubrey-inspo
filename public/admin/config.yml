@@ -1,0 +1,28 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folders:
+  - name: inspirations
+    label: 灵感截图
+    folder: public/images/inspirations
+    public_folder: /images/inspirations
+
+collections:
+  - name: inspirations
+    label: 灵感碎片
+    folder: src/content/inspirations
+    create: true
+    slug: "{{fields.style}}-{{fields.colorScheme}}-{{fields.layout}}-{{slug}}"
+    fields:
+      - { name: title, label: 标题, widget: string }
+      - { name: image, label: 截图, widget: image, media_folder: inspirations }
+      - { name: style, label: 风格标签, widget: select,
+          options: ['商业', '科技', '简约', '其他'] }
+      - { name: colorScheme, label: 色系标签, widget: select,
+          options: ['紫', '绿', '蓝', '橙', '黑灰', '其他'] }
+      - { name: layout, label: 板式标签, widget: select,
+          options: ['品牌墙', '图表', '数字高亮', '产品展示', '并列关系', '对比关系', '目录', '其他'] }
+      - { name: note, label: 备注, widget: text, required: false }
+      - { name: source, label: 来源链接, widget: string, required: false }
+      - { name: createdAt, label: 创建时间, widget: datetime, default: now }

@@ -1,0 +1,25 @@
+---
+// src/components/MatchCount.astro
+interface Props {
+  total: number;
+}
+
+const { total } = Astro.props;
+---
+
+<div class="match-count text-center py-4" id="match-count">
+  <p class="text-sm text-gray-600 dark:text-gray-400">
+    显示 <span id="visible-count" class="font-semibold text-gray-900 dark:text-gray-100">{total}</span> / {total} 个灵感
+  </p>
+</div>
+
+<script>
+  // 监听筛选更新事件
+  window.addEventListener('filter-update', (e) => {
+    const visibleCount = e.detail.visibleCount;
+    const visibleCountEl = document.getElementById('visible-count');
+    if (visibleCountEl) {
+      visibleCountEl.textContent = visibleCount;
+    }
+  });
+</script>

@@ -1,6 +1,17 @@
 ---
 // src/pages/index.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
+import FilterBar from '../components/FilterBar.astro';
+import MasonryGallery from '../components/MasonryGallery.astro';
+import MatchCount from '../components/MatchCount.astro';
+import Lightbox from '../components/Lightbox.astro';
+import { getCollection } from 'astro:content';
+
+const inspirations = await getCollection('inspirations');
+// 按创建时间倒序排列
+const sorted = inspirations.sort(
+  (a, b) => b.data.createdAt.valueOf() - a.data.createdAt.valueOf()
+);
 ---
 
 <BaseLayout title="AubreyInspo - PPT 灵感库">
@@ -11,14 +22,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
       Aubrey 的 PPT 审美灵感库 —— 收集优质设计碎片，激发创作灵感
     </p>
-    <p class="mt-4 text-sm text-gray-500 dark:text-gray-400">
-      当前共有 <span id="count" class="font-semibold">0</span> 个灵感
-    </p>
   </section>
 
-  <section class="mt-8 text-center">
-    <p class="text-gray-500 dark:text-gray-400">
-      功能开发中... 瀑布流画廊、标签筛选、Lightbox 预览即将上线
-    </p>
-  </section>
+  <FilterBar />
+  <MatchCount total={sorted.length} />
+  <MasonryGallery inspirations={sorted} />
+  <Lightbox inspirations={sorted} />
 </BaseLayout>

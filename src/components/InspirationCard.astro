@@ -1,0 +1,76 @@
+---
+// src/components/InspirationCard.astro
+interface Props {
+  inspiration: any;  // Astro content collection entry
+  index: number;
+}
+
+const { inspiration, index } = Astro.props;
+const { title, image, style, colorScheme, layout, note, source } = inspiration.data;
+---
+
+<article 
+  class="inspiration-card bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer"
+  data-index={index}
+  data-style={style}
+  data-color={colorScheme}
+  data-layout={layout}
+>
+  <!-- 缩略图 -->
+  <div class="relative overflow-hidden bg-gray-100 dark:bg-gray-700" style="aspect-ratio: 4/3;">
+    <img 
+      src={image} 
+      alt={title}
+      class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+      loading="lazy"
+      onerror="this.src='/images/placeholder.jpg'"
+    />
+  </div>
+
+  <!-- 标签 -->
+  <div class="p-3 space-y-2">
+    <h3 class="font-semibold text-sm text-gray-900 dark:text-gray-100 line-clamp-2">{title}</h3>
+    
+    <div class="flex flex-wrap gap-1.5">
+      <!-- 风格标签 -->
+      <span class={`inline-block px-2 py-0.5 text-xs rounded-full font-medium ${
+        style === '商业' ? 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200' :
+        style === '科技' ? 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-200' :
+        style === '简约' ? 'bg-slate-100 text-slate-800 dark:bg-slate-900 dark:text-slate-200' :
+        'bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200'
+      }`}>
+        {style}
+      </span>
+
+      <!-- 色系标签 -->
+      <span class={`inline-block px-2 py-0.5 text-xs rounded-full font-medium ${
+        colorScheme === '紫' ? 'bg-violet-100 text-violet-800 dark:bg-violet-900 dark:text-violet-200' :
+        colorScheme === '绿' ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200' :
+        colorScheme === '蓝' ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200' :
+        colorScheme === '橙' ? 'bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200' :
+        colorScheme === '黑灰' ? 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200' :
+        'bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200'
+      }`}>
+        {colorScheme}
+      </span>
+
+      <!-- 板式标签 -->
+      <span class="inline-block px-2 py-0.5 text-xs rounded-full font-medium bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200">
+        {layout}
+      </span>
+    </div>
+  </div>
+</article>
+
+<script>
+  // 点击卡片打开 Lightbox
+  const card = this.querySelector('.inspiration-card');
+  if (card) {
+    card.addEventListener('click', () => {
+      const event = new CustomEvent('open-lightbox', { 
+        detail: { index: parseInt(card.dataset.index) } 
+      });
+      window.dispatchEvent(event);
+    });
+  }
+</script>

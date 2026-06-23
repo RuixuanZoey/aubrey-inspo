@@ -1,1 +1,72 @@
 @import "tailwindcss";
+
+/* 全局过渡动画 */
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* 防止布局偏移 */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 自定义滚动条 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* 暗色模式下的滚动条 */
+:root.dark ::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+:root.dark ::-webkit-scrollbar-thumb {
+  background: #555;
+}
+
+:root.dark ::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
+
+/* 卡片隐藏/显示动画 */
+.inspiration-card.hidden {
+  display: none;
+}
+
+.inspiration-card.visible {
+  animation: fadeIn 0.15s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 确保 selects 在暗色模式下正确显示 */
+.dark select option {
+  background-color: #1f2937;
+  color: #f9fafb;
+}

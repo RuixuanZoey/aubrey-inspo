@@ -1,0 +1,62 @@
+---
+// src/components/FilterBar.astro
+import FilterDropdown from './FilterDropdown.astro';
+
+const styleOptions = ['商业', '科技', '简约', '其他'];
+const colorOptions = ['紫', '绿', '蓝', '橙', '黑灰', '其他'];
+const layoutOptions = ['品牌墙', '图表', '数字高亮', '产品展示', '并列关系', '对比关系', '目录', '其他'];
+---
+
+<section class="filter-bar max-w-4xl mx-auto px-4 py-6">
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+    <FilterDropdown label="风格标签" options={styleOptions} filterType="style" />
+    <FilterDropdown label="色系标签" options={colorOptions} filterType="color" />
+    <FilterDropdown label="板式标签" options={layoutOptions} filterType="layout" />
+  </div>
+</section>
+
+<script>
+  // 筛选逻辑
+  function applyFilters() {
+    const styleFilter = document.getElementById('filter-style')?.value || 'all';
+    const colorFilter = document.getElementById('filter-color')?.value || 'all';
+    const layoutFilter = document.getElementById('filter-layout')?.value || 'all';
+
+    const cards = document.querySelectorAll('.inspiration-card');
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+      const style = card.dataset.style;
+      const color = card.dataset.color;
+      const layout = card.dataset.layout;
+
+      const styleMatch = styleFilter === 'all' || style === styleFilter;
+      const colorMatch = colorFilter === 'all' || color === colorFilter;
+      const layoutMatch = layoutFilter === 'all' || layout === layoutFilter;
+
+      if (styleMatch && colorMatch && layoutMatch) {
+        card.classList.remove('hidden');
+        card.classList.add('visible');
+        visibleCount++;
+      } else {
+        card.classList.add('hidden');
+        card.classList.remove('visible');
+      }
+    });
+
+    // 更新匹配数量
+    const event = new CustomEvent('filter-update', { 
+      detail: { visibleCount } 
+    });
+    window.dispatchEvent(event);
+  }
+
+  // 监听下拉菜单变化
+  const selects = document.querySelectorAll('.filter-select');
+  selects.forEach(select => {
+    select.addEventListener('change', applyFilters);
+  });
+
+  // 初始应用筛选
+  applyFilters();
+</script>

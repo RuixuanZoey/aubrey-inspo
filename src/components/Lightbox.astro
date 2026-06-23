@@ -1,0 +1,235 @@
+---
+// src/components/Lightbox.astro
+interface Props {
+  inspirations: any[];
+}
+
+const { inspirations } = Astro.props;
+const inspirationsJson = JSON.stringify(inspirations.map(insp => ({
+  title: insp.data.title,
+  image: insp.data.image,
+  style: insp.data.style,
+  colorScheme: insp.data.colorScheme,
+  layout: insp.data.layout,
+  note: insp.data.note || '',
+  source: insp.data.source || '',
+})));
+---
+
+<div id="lightbox-overlay" class="lightbox-overlay fixed inset-0 z-50 bg-black/80 hidden items-center justify-center p-4">
+  <!-- 关闭按钮 -->
+  <button 
+    id="lightbox-close"
+    class="absolute top-4 right-4 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white text-2xl transition-colors z-10"
+    aria-label="关闭"
+  >
+    ✕
+  </button>
+
+  <!-- 左箭头 -->
+  <button 
+    id="lightbox-prev"
+    class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white text-3xl transition-colors z-10"
+    aria-label="上一个"
+  >
+    ‹
+  </button>
+
+  <!-- 右箭头 -->
+  <button 
+    id="lightbox-next"
+    class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white text-3xl transition-colors z-10"
+    aria-label="下一个"
+  >
+    ›
+  </button>
+
+  <!-- 内容区域 -->
+  <div class="lightbox-content max-w-6xl w-full max-h-[90vh] overflow-y-auto bg-white dark:bg-gray-900 rounded-2xl shadow-2xl flex flex-col md:flex-row">
+    <!-- 图片 -->
+    <div class="md:w-3/5 bg-gray-100 dark:bg-gray-800 flex items-center justify-center p-4">
+      <img id="lightbox-image" src="" alt="" class="max-w-full max-h-[60vh] md:max-h-[85vh] object-contain rounded-lg" />
+    </div>
+
+    <!-- 元信息 -->
+    <div class="md:w-2/5 p-6 md:p-8 space-y-4">
+      <h2 id="lightbox-title" class="text-2xl font-bold text-gray-900 dark:text-white"></h2>
+
+      <div id="lightbox-tags" class="flex flex-wrap gap-2"></div>
+
+      <div id="lightbox-note" class="text-gray-600 dark:text-gray-300 leading-relaxed hidden"></div>
+
+      <div id="lightbox-source" class="hidden">
+        <a href="" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center gap-1">
+          查看来源 →
+        </a>
+      </div>
+
+      <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+        <p class="text-xs text-gray-500 dark:text-gray-400">
+          按 ESC 关闭 · 按 ← → 键导航
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ inspirationsJson }}>
+  const data = JSON.parse(inspirationsJson);
+  let currentIndex = -1;
+  let visibleIndices = []; // 当前筛选结果中的索引
+
+  // 更新 visibleIndices（根据当前筛选结果）
+  function updateVisibleIndices() {
+    const cards = document.querySelectorAll('.inspiration-card:not(.hidden)');
+    visibleIndices = Array.from(cards).map(card => parseInt(card.dataset.index));
+  }
+
+  // 打开 Lightbox
+  window.addEventListener('open-lightbox', (e) => {
+    updateVisibleIndices();
+    currentIndex = e.detail.index;
+    showLightbox();
+  });
+
+  // 显示 Lightbox
+  function showLightbox() {
+    if (currentIndex < 0 || currentIndex >= data.length) return;
+
+    const item = data[currentIndex];
+    const overlay = document.getElementById('lightbox-overlay');
+    const img = document.getElementById('lightbox-image');
+    const title = document.getElementById('lightbox-title');
+    const tags = document.getElementById('lightbox-tags');
+    const note = document.getElementById('lightbox-note');
+    const source = document.getElementById('lightbox-source');
+
+    // 设置图片
+    img.src = item.image;
+    img.alt = item.title;
+
+    // 设置标题
+    title.textContent = item.title;
+
+    // 设置标签
+    tags.innerHTML = `
+      <span class="inline-block px-3 py-1 text-sm rounded-full font-medium ${
+        item.style === '商业' ? 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200' :
+        item.style === '科技' ? 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-200' :
+        item.style === '简约' ? 'bg-slate-100 text-slate-800 dark:bg-slate-900 dark:text-slate-200' :
+        'bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200'
+      }">${item.style}</span>
+      <span class="inline-block px-3 py-1 text-sm rounded-full font-medium ${
+        item.colorScheme === '紫' ? 'bg-violet-100 text-violet-800 dark:bg-violet-900 dark:text-violet-200' :
+        item.colorScheme === '绿' ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200' :
+        item.colorScheme === '蓝' ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200' :
+        item.colorScheme === '橙' ? 'bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200' :
+        item.colorScheme === '黑灰' ? 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200' :
+        'bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200'
+      }">${item.colorScheme}</span>
+      <span class="inline-block px-3 py-1 text-sm rounded-full font-medium bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200">${item.layout}</span>
+    `;
+
+    // 设置备注
+    if (item.note) {
+      note.textContent = item.note;
+      note.classList.remove('hidden');
+    } else {
+      note.classList.add('hidden');
+    }
+
+    // 设置来源
+    if (item.source) {
+      source.querySelector('a').href = item.source;
+      source.classList.remove('hidden');
+    } else {
+      source.classList.add('hidden');
+    }
+
+    // 显示 overlay
+    overlay.classList.remove('hidden');
+    overlay.classList.add('flex');
+    document.body.style.overflow = 'hidden'; // 防止背景滚动
+  }
+
+  // 关闭 Lightbox
+  function closeLightbox() {
+    const overlay = document.getElementById('lightbox-overlay');
+    overlay.classList.add('hidden');
+    overlay.classList.remove('flex');
+    document.body.style.overflow = '';
+    currentIndex = -1;
+  }
+
+  // 上一个
+  function prevLightbox() {
+    if (visibleIndices.length === 0) return;
+    const currentVisibleIndex = visibleIndices.indexOf(currentIndex);
+    const prevVisibleIndex = (currentVisibleIndex - 1 + visibleIndices.length) % visibleIndices.length;
+    currentIndex = visibleIndices[prevVisibleIndex];
+    showLightbox();
+  }
+
+  // 下一个
+  function nextLightbox() {
+    if (visibleIndices.length === 0) return;
+    const currentVisibleIndex = visibleIndices.indexOf(currentIndex);
+    const nextVisibleIndex = (currentVisibleIndex + 1) % visibleIndices.length;
+    currentIndex = visibleIndices[nextVisibleIndex];
+    showLightbox();
+  }
+
+  // 事件监听
+  document.getElementById('lightbox-close')?.addEventListener('click', closeLightbox);
+  document.getElementById('lightbox-prev')?.addEventListener('click', prevLightbox);
+  document.getElementById('lightbox-next')?.addEventListener('click', nextLightbox);
+
+  // 点击遮罩关闭
+  document.getElementById('lightbox-overlay')?.addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) closeLightbox();
+  });
+
+  // 键盘事件
+  document.addEventListener('keydown', (e) => {
+    if (currentIndex < 0) return;
+
+    if (e.key === 'Escape') {
+      closeLightbox();
+    } else if (e.key === 'ArrowLeft') {
+      prevLightbox();
+    } else if (e.key === 'ArrowRight') {
+      nextLightbox();
+    }
+  });
+
+  // 监听筛选更新（重新计算 visibleIndices）
+  window.addEventListener('filter-update', () => {
+    updateVisibleIndices();
+  });
+</script>
+
+<style>
+  .lightbox-overlay {
+    opacity: 0;
+    transition: opacity 0.2s ease-out;
+  }
+
+  .lightbox-overlay:not(.hidden) {
+    opacity: 1;
+  }
+
+  .lightbox-content {
+    transform: translateY(20px);
+    transition: transform 0.3s ease-out;
+  }
+
+  .lightbox-overlay:not(.hidden) .lightbox-content {
+    transform: translateY(0);
+  }
+
+  @media (max-width: 768px) {
+    .lightbox-content {
+      max-height: 95vh;
+    }
+  }
+</style>
