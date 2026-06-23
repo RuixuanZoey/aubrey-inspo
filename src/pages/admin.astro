@@ -27,13 +27,18 @@
       align-items: center;
       gap: 8px;
     }
-    #signup-hint a {
+    #signup-hint button {
       color: #4f46e5;
+      background: none;
+      border: none;
       text-decoration: underline;
       cursor: pointer;
       font-weight: 600;
+      font-size: inherit;
+      font-family: inherit;
+      padding: 0;
     }
-    #signup-hint a:hover {
+    #signup-hint button:hover {
       color: #3730a3;
     }
     /* 深色模式适配 */
@@ -43,19 +48,19 @@
         color: #d1d5db;
         box-shadow: 0 2px 12px rgba(0,0,0,0.4);
       }
-      #signup-hint a {
+      #signup-hint button {
         color: #818cf8;
       }
     }
   </style>
 </head>
 <body>
-  <!-- 注册/登录提示条：先隐藏，等确定 identity widget 可用后再显示 -->
+  <!-- 注册/登录提示条 -->
   <div id="signup-hint" style="display:none">
     <span>首次使用？</span>
-    <a href="javascript:;" id="signup-link">点击注册账号</a>
+    <button type="button" id="signup-link">点击注册账号</button>
     <span>|</span>
-    <a href="javascript:;" id="login-link">已有账号？登录</a>
+    <button type="button" id="login-link">已有账号？登录</button>
   </div>
 
   <!-- 1. Netlify Identity 必须先加载 -->
@@ -71,55 +76,45 @@
       var signupBtn = document.getElementById('signup-link');
       var loginBtn = document.getElementById('login-link');
 
-      function doSignup() {
-        // 优先用 Identity widget 弹窗，失败则跳转页面
-        if (window.netlifyIdentity && window.netlifyIdentity.open) {
+      // 点击注册：使用 Identity Widget 打开注册模态框
+      signupBtn.addEventListener('click', function() {
+        if (window.netlifyIdentity) {
           window.netlifyIdentity.open('signup');
-        } else {
-          document.location.href = '/.netlify/identity#signup';
         }
-      }
+      });
 
-      function doLogin() {
-        if (window.netlifyIdentity && window.netlifyIdentity.open) {
+      // 点击登录
+      loginBtn.addEventListener('click', function() {
+        if (window.netlifyIdentity) {
           window.netlifyIdentity.open('login');
-        } else {
-          document.location.href = '/.netlify/identity#login';
         }
-      }
+      });
 
-      // 点击事件
-      signupBtn.addEventListener('click', doSignup);
-      loginBtn.addEventListener('click', doLogin);
-
+      // 初始化处理
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on("init", function(user) {
           if (user) {
-            // 已登录，隐藏提示条
             hint.style.display = 'none';
           } else {
-            // 未登录，显示提示条
             hint.style.display = 'flex';
           }
-          window.netlifyIdentity.on("login", function() {
-            document.location.href = "/admin/";
-          });
-          window.netlifyIdentity.on("signup", function(newUser) {
-            // 注册成功后直接重定向
-            document.location.href = "/admin/";
-          });
         });
 
-        // 超时保护：如果 3 秒没收到 init 事件也显示按钮
-        setTimeout(function() {
-          if (hint.style.display === 'none') {
-            hint.style.display = 'flex';
-          }
-        }, 3000);
-      } else {
-        // identity widget 完全不可用，也显示按钮（走直接跳转）
-        hint.style.display = 'flex';
+        window.netlifyIdentity.on("login", function() {
+          document.location.href = "/admin/";
+        });
+
+        window.netlifyIdentity.on("signup", function() {
+          document.location.href = "/admin/";
+        });
       }
+
+      // 确保按钮显示（如果 identity 加载较慢）
+      setTimeout(function() {
+        if (hint.style.display === 'none') {
+          hint.style.display = 'flex';
+        }
+      }, 2000);
     })();
   </script>
 </body>
