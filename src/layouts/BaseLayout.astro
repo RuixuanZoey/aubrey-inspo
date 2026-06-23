@@ -2,6 +2,7 @@
 // src/layouts/BaseLayout.astro
 import NavBar from '../components/NavBar.astro';
 import ThemeToggle from '../components/ThemeToggle.astro';
+import '../styles/global.css';
 
 export interface Props {
   title?: string;
@@ -28,8 +29,6 @@ const { title = 'AubreyInspo', description = 'Aubrey 的 PPT 灵感库' } = Astr
       })();
     </script>
     
-    {/* 引入全局样式 */}
-    <link rel="stylesheet" href="/src/styles/global.css" />
   </head>
   <body class="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors">
     <NavBar>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <rect width="800" height="600" fill="#f0fdf4"/>
+  <text x="80" y="80" font-family="Arial" font-size="14" font-weight="bold" fill="#15803d">CONTENTS</text>
+  <line x1="80" y1="100" x2="720" y2="100" stroke="#bbf7d0" stroke-width="2"/>
+  <text x="120" y="180" font-family="Arial" font-size="48" font-weight="bold" fill="#065f46">01</text>
+  <text x="220" y="180" font-family="Arial" font-size="24" fill="#166534">市场分析</text>
+  <text x="220" y="210" font-family="Arial" font-size="14" fill="#4ade80">Market Overview &amp; Trends</text>
+  <text x="120" y="290" font-family="Arial" font-size="48" font-weight="bold" fill="#065f46">02</text>
+  <text x="220" y="290" font-family="Arial" font-size="24" fill="#166534">产品策略</text>
+  <text x="220" y="320" font-family="Arial" font-size="14" fill="#4ade80">Product Strategy &amp; Roadmap</text>
+  <text x="120" y="400" font-family="Arial" font-size="48" font-weight="bold" fill="#065f46">03</text>
+  <text x="220" y="400" font-family="Arial" font-size="24" fill="#166534">执行计划</text>
+  <text x="220" y="430" font-family="Arial" font-size="14" fill="#4ade80">Execution Plan &amp; Milestones</text>
+</svg>
