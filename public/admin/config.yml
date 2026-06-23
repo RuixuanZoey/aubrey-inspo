@@ -2,11 +2,11 @@ backend:
   name: git-gateway
   branch: main
 
-media_folders:
-  - name: inspirations
-    label: 灵感截图
-    folder: public/images/inspirations
-    public_folder: /images/inspirations
+media_folder: public/images/inspirations
+public_folder: /images/inspirations
+
+media_library:
+  name: default
 
 collections:
   - name: inspirations
@@ -16,7 +16,7 @@ collections:
     slug: "{{fields.style}}-{{fields.colorScheme}}-{{fields.layout}}-{{slug}}"
     fields:
       - { name: title, label: 标题, widget: string }
-      - { name: image, label: 截图, widget: image, media_folder: inspirations }
+      - { name: image, label: 截图, widget: image }
       - { name: style, label: 风格标签, widget: select,
           options: ['商业', '科技', '简约', '其他'] }
       - { name: colorScheme, label: 色系标签, widget: select,
