@@ -1,5 +1,5 @@
 ---
-// 独立注册/登录页面
+// Netlify Identity Widget 驱动的登录/注册页 — 用官方 UI，不自己调 API
 ---
 
 <!doctype html>
@@ -7,7 +7,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>注册 / 登录 | AubreyInspo</title>
+  <title>AubreyInspo — 注册 / 登录</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -21,279 +21,168 @@
     .card {
       background: white;
       border-radius: 12px;
-      padding: 40px;
+      padding: 48px 40px;
       width: 100%;
-      max-width: 420px;
+      max-width: 380px;
       box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      text-align: center;
     }
-    h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; color: #111; }
-    .sub { color: #666; font-size: 14px; margin-bottom: 28px; }
+    h1 { font-size: 24px; font-weight: 700; margin-bottom: 8px; color: #111; }
+    .sub { color: #666; font-size: 14px; margin-bottom: 32px; }
 
-    .tabs {
-      display: flex; margin-bottom: 24px;
-      border-bottom: 2px solid #e5e7eb;
-    }
-    .tab {
-      flex: 1; text-align: center; padding: 10px 0;
-      font-size: 15px; font-weight: 600; cursor: pointer;
-      border: none; background: none; color: #999;
-      border-bottom: 2px solid transparent; margin-bottom: -2px;
-    }
-    .tab.active { color: #4f46e5; border-bottom-color: #4f46e5; }
-
-    .form-group { margin-bottom: 18px; }
-    .form-group label { display: block; font-size: 13px; font-weight: 600; color: #333; margin-bottom: 6px; }
-    .form-group input {
-      width: 100%; padding: 10px 14px; font-size: 15px;
-      border: 1px solid #d1d5db; border-radius: 8px; outline: none;
-    }
-    .form-group input:focus {
-      border-color: #4f46e5; box-shadow: 0 0 0 3px rgba(79,70,229,0.1);
-    }
-
+    .actions { display: flex; flex-direction: column; gap: 12px; }
     .btn {
-      width: 100%; padding: 12px; font-size: 15px; font-weight: 600;
-      color: white; background: #4f46e5; border: none; border-radius: 8px;
-      cursor: pointer; transition: background 0.15s;
+      width: 100%; padding: 12px 20px; font-size: 15px; font-weight: 600;
+      border-radius: 8px; cursor: pointer; transition: all 0.15s;
+      border: none;
     }
-    .btn:hover { background: #4338ca; }
-    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-primary {
+      color: white; background: #4f46e5;
+    }
+    .btn-primary:hover { background: #4338ca; }
+    .btn-outline {
+      color: #4f46e5; background: white; border: 1.5px solid #d1d5db;
+    }
+    .btn-outline:hover { border-color: #4f46e5; background: #f5f3ff; }
+    .divider {
+      display: flex; align-items: center; color: #9ca3af; font-size: 13px;
+      margin: 4px 0;
+    }
+    .divider::before, .divider::after {
+      content: ""; flex: 1; height: 1px; background: #e5e7eb;
+    }
+    .divider::before { margin-right: 12px; }
+    .divider::after { margin-left: 12px; }
+
+    .back-link { margin-top: 24px; font-size: 13px; }
+    .back-link a { color: #6b7280; text-decoration: underline; }
 
     .msg {
       padding: 12px 14px; border-radius: 8px; font-size: 13px;
-      margin-bottom: 16px; display: none; line-height: 1.5;
+      margin-bottom: 20px; display: none; line-height: 1.5; text-align: left;
     }
     .msg.error { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; display: block; }
     .msg.success { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; display: block; }
     .msg.info { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; display: block; }
 
-    .back-link { margin-top: 16px; font-size: 13px; text-align: center; }
-    .back-link a { color: #6b7280; text-decoration: underline; }
-
-    .debug { font-size: 11px; color: #999; margin-top: 8px; word-break: break-all; }
+    .steps { text-align: left; background: #f9fafb; border-radius: 8px; padding: 14px 16px; margin-bottom: 24px; font-size: 13px; color: #4b5563; }
+    .steps p { margin-bottom: 6px; }
+    .steps p:last-child { margin-bottom: 0; }
+    .steps code { background: #e5e7eb; padding: 1px 5px; border-radius: 4px; font-size: 12px; }
   </style>
 </head>
 <body>
-<div class="card">
-  <h1>AubreyInspo 后台</h1>
-  <p class="sub" id="status-text">注册新账号或登录</p>
 
-  <div class="tabs">
-    <button class="tab active" onclick="switchTab('signup')">注册</button>
-    <button class="tab" onclick="switchTab('login')">登录</button>
-  </div>
+<div class="card">
+  <h1>AubreyInspo</h1>
+  <p class="sub">管理后台入口</p>
 
   <div class="msg" id="msg"></div>
 
-  <form id="signup-form" onsubmit="return handleSignup(event)">
-    <div class="form-group">
-      <label for="su-email">邮箱</label>
-      <input type="email" id="su-email" placeholder="you@example.com" required autocomplete="email">
-    </div>
-    <div class="form-group">
-      <label for="su-pw">密码</label>
-      <input type="password" id="su-pw" placeholder="至少 6 位" minlength="6" required autocomplete="new-password">
-    </div>
-    <button type="submit" class="btn" id="su-btn">注册</button>
-  </form>
+  <div class="steps">
+    <p>1. 点击下方"注册新账号"或"登录已有账号"</p>
+    <p>2. 在弹出的窗口操作（<strong>如果弹窗被拦截，请点地址栏右侧图标允许</strong>）</p>
+    <p>3. 完成后自动跳转后台</p>
+  </div>
 
-  <form id="login-form" style="display:none" onsubmit="return handleLogin(event)">
-    <div class="form-group">
-      <label for="li-email">邮箱</label>
-      <input type="email" id="li-email" placeholder="you@example.com" required autocomplete="email">
-    </div>
-    <div class="form-group">
-      <label for="li-pw">密码</label>
-      <input type="password" id="li-pw" placeholder="输入密码" required autocomplete="current-password">
-    </div>
-    <button type="submit" class="btn" id="li-btn">登录</button>
-    <p style="text-align:center;margin-top:12px;font-size:13px;">
-      <a href="javascript:;" onclick="return handleForgot()" style="color:#6b7280;text-decoration:underline;">忘记密码？</a>
-    </p>
-  </form>
+  <div class="actions">
+    <button class="btn btn-primary" id="signup-btn" onclick="openSignup(event)">
+      注册新账号
+    </button>
+    <div class="divider">或</div>
+    <button class="btn btn-outline" id="login-btn" onclick="openLogin(event)">
+      登录已有账号
+    </button>
+  </div>
 
   <div class="back-link">
     <a href="/admin/">← 返回后台</a>
   </div>
 </div>
 
-<!-- 先加载 Identity Widget，让 token 能够被 Decap CMS 识别 -->
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
 <script is:inline>
-function switchTab(tab) {
-  document.querySelectorAll('.tab').forEach(function(t, i) {
-    t.classList.toggle('active', (i===0 && tab==='signup') || (i===1 && tab==='login'));
-  });
-  document.getElementById('signup-form').style.display = (tab==='signup') ? 'block' : 'none';
-  document.getElementById('login-form').style.display = (tab==='login') ? 'block' : 'none';
-  document.getElementById('msg').className = 'msg';
-  document.getElementById('status-text').textContent = (tab==='signup') ? '注册新账号' : '登录已有账号';
-}
+(function() {
+  var identityReady = false;
+  var msgEl = document.getElementById('msg');
+  var signupBtn = document.getElementById('signup-btn');
+  var loginBtn = document.getElementById('login-btn');
 
-function showMsg(type, text) {
-  var m = document.getElementById('msg');
-  m.className = 'msg ' + type;
-  m.innerHTML = text;
-}
+  function showMsg(type, text) {
+    msgEl.className = 'msg ' + type;
+    msgEl.innerHTML = text;
+  }
 
-function handleSignup(e) {
-  e.preventDefault();
-  var email = document.getElementById('su-email').value.trim();
-  var password = document.getElementById('su-pw').value;
-  if (!email || !password) return false;
-
-  var btn = document.getElementById('su-btn');
-  btn.disabled = true;
-  btn.textContent = '注册中…';
-
-  fetch('/.netlify/identity/signup', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email: email, password: password })
-  })
-  .then(function(r) { return r.json().then(function(d) { return {ok:r.ok,status:r.status,data:d}; }); })
-  .then(function(result) {
-    if (result.ok) {
-      showMsg('success',
-        '<strong>注册成功！</strong><br><br>' +
-        '现在尝试自动登录…'
-      );
-      // 免邮箱确认已开启，注册完直接登录
-      handleLoginDirect(email, password);
-    } else if (result.status === 422) {
-      showMsg('error', '该邮箱已注册过，请尝试直接登录。');
-      switchTab('login');
-      document.getElementById('li-email').value = email;
-    } else {
-      var msg = result.data && result.data.msg ? result.data.msg : JSON.stringify(result.data);
-      showMsg('error', '注册失败：' + msg);
+  window.openSignup = function(e) {
+    e.preventDefault();
+    if (!identityReady) {
+      showMsg('info', '身份组件加载中，请稍等…');
+      return;
     }
-    btn.disabled = false;
-    btn.textContent = '注册';
-  })
-  .catch(function(err) {
-    showMsg('error', '网络请求失败，请检查网络后重试。<br><small>' + err.message + '</small>');
-    btn.disabled = false;
-    btn.textContent = '注册';
-  });
-  return false;
-}
-
-function handleLoginDirect(email, password) {
-  fetch('/.netlify/identity/token?grant_type=password', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email: email, password: password })
-  })
-  .then(function(r) { return r.json().then(function(d) { return {ok:r.ok,status:r.status,data:d}; }); })
-  .then(function(result) {
-    if (result.ok && result.data.access_token) {
-      saveSessionAndRedirect(result.data, email);
-    } else {
-      showMsg('info', '注册成功但自动登录失败，请切换到"登录"标签手动登录。');
-      switchTab('login');
-      document.getElementById('li-email').value = email;
-    }
-  });
-}
-
-function handleLogin(e) {
-  e.preventDefault();
-  var email = document.getElementById('li-email').value.trim();
-  var password = document.getElementById('li-pw').value;
-  if (!email || !password) return false;
-
-  var btn = document.getElementById('li-btn');
-  btn.disabled = true;
-  btn.textContent = '登录中…';
-
-  fetch('/.netlify/identity/token?grant_type=password', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email: email, password: password })
-  })
-  .then(function(r) { return r.json().then(function(d) { return {ok:r.ok,status:r.status,data:d}; }); })
-  .then(function(result) {
-    if (result.ok && result.data.access_token) {
-      showMsg('success', '登录成功！即将跳转…');
-      saveSessionAndRedirect(result.data, email);
-    } else if (result.status === 400 || result.status === 401) {
-      var errMsg = result.data && result.data.error_description ? result.data.error_description : '邮箱或密码错误';
-      showMsg('error', '登录失败：' + errMsg + '<br><small>请检查邮箱和密码是否正确。如果刚注册，可能需要等待几秒后再试。</small>');
-    } else {
-      var msg = result.data && result.data.error_description ? result.data.error_description :
-                result.data && result.data.msg ? result.data.msg : JSON.stringify(result.data);
-      showMsg('error', '登录失败：' + msg);
-    }
-    btn.disabled = false;
-    btn.textContent = '登录';
-  })
-  .catch(function(err) {
-    showMsg('error', '网络请求失败，请检查网络后重试。');
-    btn.disabled = false;
-    btn.textContent = '登录';
-  });
-  return false;
-}
-
-function saveSessionAndRedirect(tokenData, email) {
-  // 构建 Netlify Identity Widget 期望的 gotrue.user 格式
-  var user = {
-    id: tokenData.user ? tokenData.user.id : '',
-    email: email,
-    token: {
-      access_token: tokenData.access_token,
-      expires_in: tokenData.expires_in || 3600,
-      refresh_token: tokenData.refresh_token || '',
-      token_type: tokenData.token_type || 'bearer'
-    },
-    app_metadata: { provider: 'email' },
-    user_metadata: {},
-    aud: '',
-    created_at: tokenData.user ? tokenData.user.created_at : '',
-    confirmed_at: tokenData.user ? tokenData.user.confirmed_at : '',
-    role: tokenData.user ? tokenData.user.role : '',
-    updated_at: tokenData.user ? tokenData.user.updated_at : ''
+    showMsg('info', '正在打开注册窗口…');
+    window.netlifyIdentity.open('signup');
   };
 
-  // 写入 localStorage，Identity Widget 和 Decap CMS 靠这个判断登录状态
-  localStorage.setItem('gotrue.user', JSON.stringify(user));
-  localStorage.setItem('nf_session_token', tokenData.access_token);
-
-  // 等 Identity Widget 初始化后再跳转
-  setTimeout(function() {
-    document.location.href = '/admin/';
-  }, 500);
-}
-
-function handleForgot() {
-  var email = document.getElementById('li-email').value.trim();
-  if (!email) {
-    showMsg('error', '请先在邮箱输入框中输入你的邮箱地址。');
-    return false;
-  }
-  showMsg('info', '正在发送密码重置邮件…');
-
-  fetch('/.netlify/identity/recover', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email: email })
-  })
-  .then(function(r) { return r.json().then(function(d) { return {ok:r.ok,status:r.status,data:d}; }); })
-  .then(function(result) {
-    if (result.ok) {
-      showMsg('success', '密码重置邮件已发送至 <b>' + email + '</b>，请查收（检查垃圾箱）。');
-    } else {
-      var msg = result.data && result.data.msg ? result.data.msg : '发送失败';
-      showMsg('error', '发送失败：' + msg);
+  window.openLogin = function(e) {
+    e.preventDefault();
+    if (!identityReady) {
+      showMsg('info', '身份组件加载中，请稍等…');
+      return;
     }
-  })
-  .catch(function(err) {
-    showMsg('error', '网络请求失败，请检查网络后重试。');
-  });
-  return false;
-}
+    showMsg('info', '正在打开登录窗口…');
+    window.netlifyIdentity.open('login');
+  };
+
+  // 初始化 Identity Widget
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", function(user) {
+      identityReady = true;
+      signupBtn.disabled = false;
+      loginBtn.disabled = false;
+      if (user) {
+        // 已登录，直接跳转后台
+        showMsg('success', '已登录，跳转到后台…');
+        setTimeout(function() {
+          document.location.href = '/admin/';
+        }, 500);
+      }
+    });
+
+    window.netlifyIdentity.on("login", function() {
+      showMsg('success', '登录成功！跳转到后台…');
+      setTimeout(function() {
+        document.location.href = '/admin/';
+      }, 500);
+    });
+
+    window.netlifyIdentity.on("signup", function(newUser) {
+      showMsg('success', '注册成功！即将跳转…');
+      setTimeout(function() {
+        document.location.href = '/admin/';
+      }, 300);
+    });
+
+    window.netlifyIdentity.on("error", function(err) {
+      showMsg('error', '操作失败：' + (err.message || err));
+    });
+
+    window.netlifyIdentity.on("close", function() {
+      // 用户关闭了弹窗但没有登录，清除之前的提示
+      setTimeout(function() {
+        if (msgEl.className.indexOf('success') < 0) {
+          msgEl.className = 'msg';
+          msgEl.innerHTML = '';
+        }
+      }, 1000);
+    });
+
+    // 初始化
+    window.netlifyIdentity.init();
+  } else {
+    showMsg('error', '身份认证组件未能加载，请刷新页面重试。');
+  }
+})();
 </script>
 </body>
 </html>
