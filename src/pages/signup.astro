@@ -114,6 +114,9 @@
   </div>
 </div>
 
+<!-- 先加载 Identity Widget，让 token 能够被 Decap CMS 识别 -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
 <script is:inline>
 function switchTab(tab) {
   document.querySelectorAll('.tab').forEach(function(t, i) {
@@ -149,32 +152,47 @@ function handleSignup(e) {
   .then(function(r) { return r.json().then(function(d) { return {ok:r.ok,status:r.status,data:d}; }); })
   .then(function(result) {
     if (result.ok) {
-      // 注册成功，Netlify 会发送确认邮件
       showMsg('success',
         '<strong>注册成功！</strong><br><br>' +
-        '已向 <b>' + email + '</b> 发送确认邮件。<br><br>' +
-        '请查收邮件（检查垃圾箱），点击邮件中的确认链接激活账号。<br>' +
-        '激活后回到此页面登录即可。'
+        '现在尝试自动登录…'
       );
-      switchTab('login');
-      document.getElementById('li-email').value = email;
+      // 免邮箱确认已开启，注册完直接登录
+      handleLoginDirect(email, password);
     } else if (result.status === 422) {
-      showMsg('error', '该邮箱已注册过，请直接登录或使用其他邮箱。');
+      showMsg('error', '该邮箱已注册过，请尝试直接登录。');
       switchTab('login');
       document.getElementById('li-email').value = email;
     } else {
       var msg = result.data && result.data.msg ? result.data.msg : JSON.stringify(result.data);
       showMsg('error', '注册失败：' + msg);
     }
+    btn.disabled = false;
+    btn.textContent = '注册';
   })
   .catch(function(err) {
     showMsg('error', '网络请求失败，请检查网络后重试。<br><small>' + err.message + '</small>');
-  })
-  .finally(function() {
     btn.disabled = false;
     btn.textContent = '注册';
   });
   return false;
+}
+
+function handleLoginDirect(email, password) {
+  fetch('/.netlify/identity/token?grant_type=password', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: email, password: password })
+  })
+  .then(function(r) { return r.json().then(function(d) { return {ok:r.ok,status:r.status,data:d}; }); })
+  .then(function(result) {
+    if (result.ok && result.data.access_token) {
+      saveSessionAndRedirect(result.data, email);
+    } else {
+      showMsg('info', '注册成功但自动登录失败，请切换到"登录"标签手动登录。');
+      switchTab('login');
+      document.getElementById('li-email').value = email;
+    }
+  });
 }
 
 function handleLogin(e) {
@@ -196,28 +214,54 @@ function handleLogin(e) {
   .then(function(result) {
     if (result.ok && result.data.access_token) {
       showMsg('success', '登录成功！即将跳转…');
-      // 存储 token 并通过 identity widget 确认登录
-      setTimeout(function() {
-        document.location.href = '/admin/';
-      }, 300);
-    } else if (result.status === 400) {
-      showMsg('error', '邮箱或密码错误，请重试。');
-    } else if (result.status === 401) {
-      showMsg('error', '密码错误，请重试。');
+      saveSessionAndRedirect(result.data, email);
+    } else if (result.status === 400 || result.status === 401) {
+      var errMsg = result.data && result.data.error_description ? result.data.error_description : '邮箱或密码错误';
+      showMsg('error', '登录失败：' + errMsg + '<br><small>请检查邮箱和密码是否正确。如果刚注册，可能需要等待几秒后再试。</small>');
     } else {
       var msg = result.data && result.data.error_description ? result.data.error_description :
                 result.data && result.data.msg ? result.data.msg : JSON.stringify(result.data);
       showMsg('error', '登录失败：' + msg);
     }
+    btn.disabled = false;
+    btn.textContent = '登录';
   })
   .catch(function(err) {
     showMsg('error', '网络请求失败，请检查网络后重试。');
-  })
-  .finally(function() {
     btn.disabled = false;
     btn.textContent = '登录';
   });
   return false;
+}
+
+function saveSessionAndRedirect(tokenData, email) {
+  // 构建 Netlify Identity Widget 期望的 gotrue.user 格式
+  var user = {
+    id: tokenData.user ? tokenData.user.id : '',
+    email: email,
+    token: {
+      access_token: tokenData.access_token,
+      expires_in: tokenData.expires_in || 3600,
+      refresh_token: tokenData.refresh_token || '',
+      token_type: tokenData.token_type || 'bearer'
+    },
+    app_metadata: { provider: 'email' },
+    user_metadata: {},
+    aud: '',
+    created_at: tokenData.user ? tokenData.user.created_at : '',
+    confirmed_at: tokenData.user ? tokenData.user.confirmed_at : '',
+    role: tokenData.user ? tokenData.user.role : '',
+    updated_at: tokenData.user ? tokenData.user.updated_at : ''
+  };
+
+  // 写入 localStorage，Identity Widget 和 Decap CMS 靠这个判断登录状态
+  localStorage.setItem('gotrue.user', JSON.stringify(user));
+  localStorage.setItem('nf_session_token', tokenData.access_token);
+
+  // 等 Identity Widget 初始化后再跳转
+  setTimeout(function() {
+    document.location.href = '/admin/';
+  }, 500);
 }
 </script>
 </body>
