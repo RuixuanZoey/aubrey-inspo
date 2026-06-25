@@ -107,6 +107,9 @@
       <input type="password" id="li-pw" placeholder="输入密码" required autocomplete="current-password">
     </div>
     <button type="submit" class="btn" id="li-btn">登录</button>
+    <p style="text-align:center;margin-top:12px;font-size:13px;">
+      <a href="javascript:;" onclick="return handleForgot()" style="color:#6b7280;text-decoration:underline;">忘记密码？</a>
+    </p>
   </form>
 
   <div class="back-link">
@@ -262,6 +265,34 @@ function saveSessionAndRedirect(tokenData, email) {
   setTimeout(function() {
     document.location.href = '/admin/';
   }, 500);
+}
+
+function handleForgot() {
+  var email = document.getElementById('li-email').value.trim();
+  if (!email) {
+    showMsg('error', '请先在邮箱输入框中输入你的邮箱地址。');
+    return false;
+  }
+  showMsg('info', '正在发送密码重置邮件…');
+
+  fetch('/.netlify/identity/recover', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: email })
+  })
+  .then(function(r) { return r.json().then(function(d) { return {ok:r.ok,status:r.status,data:d}; }); })
+  .then(function(result) {
+    if (result.ok) {
+      showMsg('success', '密码重置邮件已发送至 <b>' + email + '</b>，请查收（检查垃圾箱）。');
+    } else {
+      var msg = result.data && result.data.msg ? result.data.msg : '发送失败';
+      showMsg('error', '发送失败：' + msg);
+    }
+  })
+  .catch(function(err) {
+    showMsg('error', '网络请求失败，请检查网络后重试。');
+  });
+  return false;
 }
 </script>
 </body>
