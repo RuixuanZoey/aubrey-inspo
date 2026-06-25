@@ -114,7 +114,7 @@
   </div>
 </div>
 
-<script>
+<script is:inline>
 function switchTab(tab) {
   document.querySelectorAll('.tab').forEach(function(t, i) {
     t.classList.toggle('active', (i===0 && tab==='signup') || (i===1 && tab==='login'));

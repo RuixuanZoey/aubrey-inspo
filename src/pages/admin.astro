@@ -68,7 +68,7 @@
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   
   <!-- 3. 登录成功后的重定向处理 -->
-  <script>
+  <script is:inline>
     if (window.netlifyIdentity) {
       window.netlifyIdentity.on("init", function(user) {
         if (!user) {
