@@ -1,6 +1,6 @@
 ---
 // src/pages/admin.astro
-// Decap CMS 后台管理页面
+// 统一入口：未登录 → 显示注册/登录；已登录 → 加载 Decap CMS
 ---
 
 <!doctype html>
@@ -8,79 +8,186 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Content Manager | AubreyInspo</title>
+  <title>AubreyInspo — 内容管理</title>
   <style>
-    #signup-hint {
-      position: fixed;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 9999;
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      font-size: 14px;
-      color: #666;
+      background: #f5f5f5;
+    }
+
+    /* ===== 未登录封面 ===== */
+    #auth-gate {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 100vh;
+    }
+    #auth-gate .card {
       background: white;
-      padding: 12px 24px;
-      border-radius: 8px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.12);
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      border-radius: 12px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 380px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      text-align: center;
     }
-    #signup-hint a {
-      color: #4f46e5;
-      background: none;
+    #auth-gate h1 { font-size: 24px; font-weight: 700; margin-bottom: 6px; color: #111; }
+    #auth-gate .sub { color: #666; font-size: 14px; margin-bottom: 28px; }
+
+    #auth-gate .actions { display: flex; flex-direction: column; gap: 12px; }
+    #auth-gate .btn {
+      width: 100%; padding: 12px 20px; font-size: 15px; font-weight: 600;
+      border-radius: 8px; cursor: pointer; transition: all 0.15s;
       border: none;
-      text-decoration: underline;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: inherit;
-      font-family: inherit;
-      padding: 0;
     }
-    #signup-hint a:hover {
-      color: #3730a3;
+    #auth-gate .btn-primary { color: white; background: #4f46e5; }
+    #auth-gate .btn-primary:hover { background: #4338ca; }
+    #auth-gate .btn-outline {
+      color: #4f46e5; background: white; border: 1.5px solid #d1d5db;
     }
-    /* 深色模式适配 */
-    @media (prefers-color-scheme: dark) {
-      #signup-hint {
-        background: #1f2937;
-        color: #d1d5db;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.4);
-      }
-      #signup-hint a {
-        color: #818cf8;
-      }
+    #auth-gate .btn-outline:hover { border-color: #4f46e5; background: #f5f3ff; }
+
+    #auth-gate .divider {
+      display: flex; align-items: center; color: #9ca3af; font-size: 13px;
+      margin: 4px 0;
     }
+    #auth-gate .divider::before, #auth-gate .divider::after {
+      content: ""; flex: 1; height: 1px; background: #e5e7eb;
+    }
+    #auth-gate .divider::before { margin-right: 12px; }
+    #auth-gate .divider::after { margin-left: 12px; }
+
+    #auth-gate .tips {
+      text-align: left; background: #f9fafb; border-radius: 8px;
+      padding: 14px 16px; margin-top: 24px; font-size: 13px; color: #4b5563;
+    }
+    #auth-gate .tips p { margin-bottom: 6px; }
+    #auth-gate .tips p:last-child { margin-bottom: 0; }
+
+    #auth-gate .msg {
+      padding: 12px 14px; border-radius: 8px; font-size: 13px;
+      margin-bottom: 20px; display: none; line-height: 1.5; text-align: left;
+    }
+    #auth-gate .msg.error { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; display: block; }
+    #auth-gate .msg.info { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; display: block; }
+    #auth-gate .msg.success { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; display: block; }
+
+    #auth-gate .back-link { margin-top: 24px; font-size: 13px; }
+    #auth-gate .back-link a { color: #6b7280; text-decoration: underline; }
+
+    /* ===== 已登录（Decap CMS → 全屏）===== */
+    #cms-container { display: none; height: 100vh; }
   </style>
 </head>
 <body>
-  <!-- 注册/登录提示条 -->
-  <div id="signup-hint">
-    <span>首次使用？</span>
-    <a href="/signup/">注册账号</a>
+  <!-- 未登录封面 -->
+  <div id="auth-gate">
+    <div class="card">
+      <h1>AubreyInspo</h1>
+      <p class="sub">内容管理后台</p>
+
+      <div class="msg" id="msg"></div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="signup-btn" onclick="doSignup(event)">
+          注册新账号
+        </button>
+        <div class="divider">或</div>
+        <button class="btn btn-outline" id="login-btn" onclick="doLogin(event)">
+          登录已有账号
+        </button>
+      </div>
+
+      <div class="tips">
+        <p>• 点击按钮，在弹出的窗口中操作</p>
+        <p>• 若弹窗被拦截，请点击地址栏右侧图标允许</p>
+        <p>• 之后无需重复登录</p>
+      </div>
+
+      <div class="back-link">
+        <a href="/">← 返回画廊首页</a>
+      </div>
+    </div>
   </div>
 
-  <!-- 1. Netlify Identity 必须先加载 -->
+  <!-- 已登录 → Decap CMS 容器 -->
+  <div id="cms-container"></div>
+
+  <!-- 1. Identity Widget（必须第一个加载）-->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  
-  <!-- 2. 然后加载 Decap CMS -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  
-  <!-- 3. 登录成功后的重定向处理 -->
+
+  <!-- 2. 登录门控逻辑 -->
   <script is:inline>
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", function(user) {
-        if (!user) {
-          window.netlifyIdentity.on("login", function() {
-            document.location.href = "/admin/";
-          });
-        }
-        if (user) {
-          document.getElementById('signup-hint').style.display = 'none';
-        }
-      });
+(function() {
+  var authGate = document.getElementById('auth-gate');
+  var cmsContainer = document.getElementById('cms-container');
+  var msgEl = document.getElementById('msg');
+  var widgetReady = false;
+
+  function showMsg(type, text) {
+    msgEl.className = 'msg ' + type;
+    msgEl.innerHTML = text;
+  }
+
+  window.doSignup = function(e) {
+    e.preventDefault();
+    if (widgetReady && window.netlifyIdentity) {
+      window.netlifyIdentity.open('signup');
+    } else {
+      showMsg('info', '身份组件加载中，请稍等…');
     }
-  </script>
+  };
+
+  window.doLogin = function(e) {
+    e.preventDefault();
+    if (widgetReady && window.netlifyIdentity) {
+      window.netlifyIdentity.open('login');
+    } else {
+      showMsg('info', '身份组件加载中，请稍等…');
+    }
+  };
+
+  if (!window.netlifyIdentity) {
+    showMsg('error', '身份认证组件加载失败，请刷新页面重试。');
+  } else {
+    window.netlifyIdentity.on("init", function(user) {
+      widgetReady = true;
+      if (user) {
+        // 已登录 → 隐藏封面，加载 CMS
+        authGate.style.display = 'none';
+        cmsContainer.style.display = 'block';
+
+        // 动态加载 Decap CMS
+        var script = document.createElement('script');
+        script.src = 'https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js';
+        script.onload = function() {
+          // CMS 初始化后会自动识别已登录用户
+          window.initCMS = window.initCMS || function() {};
+        };
+        document.body.appendChild(script);
+      }
+    });
+
+    window.netlifyIdentity.on("login", function() {
+      showMsg('success', '登录成功！正在跳转…');
+      setTimeout(function() {
+        document.location.href = '/admin/';
+      }, 500);
+    });
+
+    window.netlifyIdentity.on("signup", function() {
+      showMsg('success', '注册成功！正在跳转…');
+      setTimeout(function() {
+        document.location.href = '/admin/';
+      }, 300);
+    });
+
+    window.netlifyIdentity.on("error", function(err) {
+      showMsg('error', '操作失败：' + (err && err.message ? err.message : err));
+    });
+
+    window.netlifyIdentity.init();
+  }
+})();
+</script>
 </body>
 </html>
