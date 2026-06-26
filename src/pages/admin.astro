@@ -115,13 +115,14 @@
   <!-- 1. Identity Widget（必须第一个加载）-->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
-  <!-- 2. 登录门控逻辑 -->
+  <!-- 2. 登录门控逻辑（延迟到 Identity Widget 加载完成后执行）-->
   <script is:inline>
 (function() {
   var authGate = document.getElementById('auth-gate');
   var cmsContainer = document.getElementById('cms-container');
   var msgEl = document.getElementById('msg');
-  var widgetReady = false;
+  var widgetStart = Date.now();
+  var maxWait = 15000; // 最多等 15 秒
 
   function showMsg(type, text) {
     msgEl.className = 'msg ' + type;
@@ -130,63 +131,66 @@
 
   window.doSignup = function(e) {
     e.preventDefault();
-    if (widgetReady && window.netlifyIdentity) {
+    if (window.netlifyIdentity && window.netlifyIdentity.open) {
       window.netlifyIdentity.open('signup');
-    } else {
-      showMsg('info', '身份组件加载中，请稍等…');
     }
   };
 
   window.doLogin = function(e) {
     e.preventDefault();
-    if (widgetReady && window.netlifyIdentity) {
+    if (window.netlifyIdentity && window.netlifyIdentity.open) {
       window.netlifyIdentity.open('login');
-    } else {
-      showMsg('info', '身份组件加载中，请稍等…');
     }
   };
 
-  if (!window.netlifyIdentity) {
-    showMsg('error', '身份认证组件加载失败，请刷新页面重试。');
-  } else {
-    window.netlifyIdentity.on("init", function(user) {
-      widgetReady = true;
-      if (user) {
-        // 已登录 → 隐藏封面，加载 CMS
-        authGate.style.display = 'none';
-        cmsContainer.style.display = 'block';
+  function waitForWidget() {
+    if (window.netlifyIdentity) {
+      // Widget 已加载
+      window.netlifyIdentity.on("init", function(user) {
+        if (user) {
+          authGate.style.display = 'none';
+          cmsContainer.style.display = 'block';
+          var script = document.createElement('script');
+          script.src = 'https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js';
+          document.body.appendChild(script);
+        }
+      });
 
-        // 动态加载 Decap CMS
-        var script = document.createElement('script');
-        script.src = 'https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js';
-        script.onload = function() {
-          // CMS 初始化后会自动识别已登录用户
-          window.initCMS = window.initCMS || function() {};
-        };
-        document.body.appendChild(script);
-      }
-    });
+      window.netlifyIdentity.on("login", function() {
+        window.location.href = '/admin/';
+      });
 
-    window.netlifyIdentity.on("login", function() {
-      showMsg('success', '登录成功！正在跳转…');
-      setTimeout(function() {
-        document.location.href = '/admin/';
-      }, 500);
-    });
+      window.netlifyIdentity.on("signup", function() {
+        window.location.href = '/admin/';
+      });
 
-    window.netlifyIdentity.on("signup", function() {
-      showMsg('success', '注册成功！正在跳转…');
-      setTimeout(function() {
-        document.location.href = '/admin/';
-      }, 300);
-    });
+      window.netlifyIdentity.on("error", function(err) {
+        showMsg('error', '操作失败：' + (err && err.message ? err.message : err));
+      });
 
-    window.netlifyIdentity.on("error", function(err) {
-      showMsg('error', '操作失败：' + (err && err.message ? err.message : err));
-    });
+      window.netlifyIdentity.init();
+      return;
+    }
 
-    window.netlifyIdentity.init();
+    if (Date.now() - widgetStart > maxWait) {
+      showMsg('error',
+        '身份认证组件加载超时。<br><br>' +
+        '可能原因：<br>' +
+        '1. 网络不稳定，请检查连接后刷新重试<br>' +
+        '2. 广告/追踪拦截插件阻止了 identity.netlify.com<br>' +
+        '3. 公司/学校网络屏蔽了该域名<br><br>' +
+        '<small>如果持续失败，请在浏览器中直接访问：<br>' +
+        '<a href="https://identity.netlify.com/v1/netlify-identity-widget.js" target="_blank">' +
+        'https://identity.netlify.com/v1/netlify-identity-widget.js</a><br>' +
+        '看是否能正常打开。</small>'
+      );
+      return;
+    }
+
+    setTimeout(waitForWidget, 200);
   }
+
+  waitForWidget();
 })();
 </script>
 </body>
