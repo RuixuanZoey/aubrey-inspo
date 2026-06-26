@@ -112,8 +112,8 @@
   <!-- 已登录 → Decap CMS 容器 -->
   <div id="cms-container"></div>
 
-  <!-- 1. Identity Widget（必须第一个加载）-->
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <!-- 1. Identity Widget（本地托管，避免被浏览器插件拦截）-->
+  <script is:inline src="/netlify-identity-widget.js"></script>
 
   <!-- 2. 登录门控逻辑（延迟到 Identity Widget 加载完成后执行）-->
   <script is:inline>
