@@ -2,7 +2,7 @@
   {
     "id": 1,
     "slug": "flybook-001",
-    "image": "/images/inspirations/flybook-001.png",
+    "image": "images/inspirations/flybook-001.png",
     "title": "商业·黑灰色·品牌墙",
     "style": "商业",
     "colorScheme": "黑灰",
@@ -15,7 +15,7 @@
   {
     "id": 2,
     "slug": "flybook-002",
-    "image": "/images/inspirations/flybook-002.png",
+    "image": "images/inspirations/flybook-002.png",
     "title": "商业·黑灰色·图表",
     "style": "商业",
     "colorScheme": "黑灰",
@@ -28,7 +28,7 @@
   {
     "id": 3,
     "slug": "flybook-003",
-    "image": "/images/inspirations/flybook-003.png",
+    "image": "images/inspirations/flybook-003.png",
     "title": "商业·紫色·引言",
     "style": "商业",
     "colorScheme": "紫",
@@ -41,7 +41,7 @@
   {
     "id": 4,
     "slug": "flybook-004",
-    "image": "/images/inspirations/flybook-004.png",
+    "image": "images/inspirations/flybook-004.png",
     "title": "商业·紫色·图表",
     "style": "商业",
     "colorScheme": "紫",
@@ -54,7 +54,7 @@
   {
     "id": 5,
     "slug": "flybook-005",
-    "image": "/images/inspirations/flybook-005.png",
+    "image": "images/inspirations/flybook-005.png",
     "title": "商业·紫色·并列关系",
     "style": "商业",
     "colorScheme": "紫",
@@ -67,7 +67,7 @@
   {
     "id": 6,
     "slug": "flybook-006",
-    "image": "/images/inspirations/flybook-006.png",
+    "image": "images/inspirations/flybook-006.png",
     "title": "商业·紫色·图表",
     "style": "商业",
     "colorScheme": "紫",
@@ -80,7 +80,7 @@
   {
     "id": 7,
     "slug": "flybook-007",
-    "image": "/images/inspirations/flybook-007.png",
+    "image": "images/inspirations/flybook-007.png",
     "title": "商业·绿色·数字高亮",
     "style": "商业",
     "colorScheme": "绿",
@@ -93,7 +93,7 @@
   {
     "id": 8,
     "slug": "flybook-008",
-    "image": "/images/inspirations/flybook-008.png",
+    "image": "images/inspirations/flybook-008.png",
     "title": "商业·绿色·数字高亮",
     "style": "商业",
     "colorScheme": "绿",
@@ -106,7 +106,7 @@
   {
     "id": 9,
     "slug": "flybook-009",
-    "image": "/images/inspirations/flybook-009.png",
+    "image": "images/inspirations/flybook-009.png",
     "title": "商业·绿色·数字高亮",
     "style": "商业",
     "colorScheme": "绿",
@@ -119,7 +119,7 @@
   {
     "id": 10,
     "slug": "flybook-010",
-    "image": "/images/inspirations/flybook-010.png",
+    "image": "images/inspirations/flybook-010.png",
     "title": "商业·绿色·数字高亮",
     "style": "商业",
     "colorScheme": "绿",
@@ -132,7 +132,7 @@
   {
     "id": 11,
     "slug": "flybook-011",
-    "image": "/images/inspirations/flybook-011.png",
+    "image": "images/inspirations/flybook-011.png",
     "title": "科技·黑灰色·产品展示",
     "style": "科技",
     "colorScheme": "黑灰",
@@ -145,7 +145,7 @@
   {
     "id": 12,
     "slug": "flybook-012",
-    "image": "/images/inspirations/flybook-012.png",
+    "image": "images/inspirations/flybook-012.png",
     "title": "科技·黑灰色·产品展示",
     "style": "科技",
     "colorScheme": "黑灰",
@@ -158,7 +158,7 @@
   {
     "id": 13,
     "slug": "flybook-013",
-    "image": "/images/inspirations/flybook-013.png",
+    "image": "images/inspirations/flybook-013.png",
     "title": "科技·绿色·对比关系",
     "style": "科技",
     "colorScheme": "绿",
@@ -171,7 +171,7 @@
   {
     "id": 14,
     "slug": "flybook-014",
-    "image": "/images/inspirations/flybook-014.png",
+    "image": "images/inspirations/flybook-014.png",
     "title": "科技·紫色·时间线",
     "style": "科技",
     "colorScheme": "紫",
@@ -184,7 +184,7 @@
   {
     "id": 15,
     "slug": "flybook-015",
-    "image": "/images/inspirations/flybook-015.png",
+    "image": "images/inspirations/flybook-015.png",
     "title": "科技·紫色·图表",
     "style": "科技",
     "colorScheme": "紫",
@@ -197,7 +197,7 @@
   {
     "id": 16,
     "slug": "flybook-016",
-    "image": "/images/inspirations/flybook-016.png",
+    "image": "images/inspirations/flybook-016.png",
     "title": "科技·黑灰色·并列关系",
     "style": "科技",
     "colorScheme": "黑灰",
@@ -210,7 +210,7 @@
   {
     "id": 17,
     "slug": "flybook-017",
-    "image": "/images/inspirations/flybook-017.png",
+    "image": "images/inspirations/flybook-017.png",
     "title": "科技·黑灰色·图表",
     "style": "科技",
     "colorScheme": "黑灰",
@@ -223,7 +223,7 @@
   {
     "id": 18,
     "slug": "flybook-018",
-    "image": "/images/inspirations/flybook-018.png",
+    "image": "images/inspirations/flybook-018.png",
     "title": "科技·蓝色·产品展示",
     "style": "科技",
     "colorScheme": "蓝",
@@ -236,7 +236,7 @@
   {
     "id": 19,
     "slug": "flybook-019",
-    "image": "/images/inspirations/flybook-019.png",
+    "image": "images/inspirations/flybook-019.png",
     "title": "科技·蓝色·产品展示",
     "style": "科技",
     "colorScheme": "蓝",
@@ -249,7 +249,7 @@
   {
     "id": 20,
     "slug": "flybook-020",
-    "image": "/images/inspirations/flybook-020.png",
+    "image": "images/inspirations/flybook-020.png",
     "title": "商业·黄色·目录",
     "style": "商业",
     "colorScheme": "黄",
@@ -262,7 +262,7 @@
   {
     "id": 21,
     "slug": "flybook-021",
-    "image": "/images/inspirations/flybook-021.png",
+    "image": "images/inspirations/flybook-021.png",
     "title": "商业·黑灰色·递进关系",
     "style": "商业",
     "colorScheme": "黑灰",
@@ -275,7 +275,7 @@
   {
     "id": 22,
     "slug": "flybook-022",
-    "image": "/images/inspirations/flybook-022.png",
+    "image": "images/inspirations/flybook-022.png",
     "title": "商业·绿色·封面封底",
     "style": "商业",
     "colorScheme": "绿",
@@ -288,7 +288,7 @@
   {
     "id": 23,
     "slug": "flybook-023",
-    "image": "/images/inspirations/flybook-023.png",
+    "image": "images/inspirations/flybook-023.png",
     "title": "科技·橙色·产品展示",
     "style": "科技",
     "colorScheme": "橙",
@@ -301,7 +301,7 @@
   {
     "id": 24,
     "slug": "flybook-024",
-    "image": "/images/inspirations/flybook-024.png",
+    "image": "images/inspirations/flybook-024.png",
     "title": "科技·橙色·产品展示",
     "style": "科技",
     "colorScheme": "橙",
@@ -314,7 +314,7 @@
   {
     "id": 25,
     "slug": "flybook-025",
-    "image": "/images/inspirations/flybook-025.png",
+    "image": "images/inspirations/flybook-025.png",
     "title": "科技·橙色·数字高亮",
     "style": "科技",
     "colorScheme": "橙",
@@ -327,7 +327,7 @@
   {
     "id": 26,
     "slug": "flybook-026",
-    "image": "/images/inspirations/flybook-026.png",
+    "image": "images/inspirations/flybook-026.png",
     "title": "科技·橙色·引言",
     "style": "科技",
     "colorScheme": "橙",
@@ -340,7 +340,7 @@
   {
     "id": 27,
     "slug": "flybook-027",
-    "image": "/images/inspirations/flybook-027.png",
+    "image": "images/inspirations/flybook-027.png",
     "title": "自然·绿色·数字高亮",
     "style": "自然",
     "colorScheme": "绿",
@@ -353,7 +353,7 @@
   {
     "id": 28,
     "slug": "flybook-028",
-    "image": "/images/inspirations/flybook-028.png",
+    "image": "images/inspirations/flybook-028.png",
     "title": "自然·绿色·并列关系",
     "style": "自然",
     "colorScheme": "绿",
@@ -366,7 +366,7 @@
   {
     "id": 29,
     "slug": "flybook-029",
-    "image": "/images/inspirations/flybook-029.png",
+    "image": "images/inspirations/flybook-029.png",
     "title": "自然·绿色·并列关系",
     "style": "自然",
     "colorScheme": "绿",
@@ -379,7 +379,7 @@
   {
     "id": 30,
     "slug": "flybook-030",
-    "image": "/images/inspirations/flybook-030.png",
+    "image": "images/inspirations/flybook-030.png",
     "title": "自然·绿色·封面封底",
     "style": "自然",
     "colorScheme": "绿",
@@ -392,7 +392,7 @@
   {
     "id": 31,
     "slug": "flybook-031",
-    "image": "/images/inspirations/flybook-031.png",
+    "image": "images/inspirations/flybook-031.png",
     "title": "自然·绿色·封面封底",
     "style": "自然",
     "colorScheme": "绿",
@@ -405,7 +405,7 @@
   {
     "id": 32,
     "slug": "flybook-032",
-    "image": "/images/inspirations/flybook-032.png",
+    "image": "images/inspirations/flybook-032.png",
     "title": "商业·橙色·图表",
     "style": "商业",
     "colorScheme": "橙",
@@ -418,7 +418,7 @@
   {
     "id": 33,
     "slug": "flybook-033",
-    "image": "/images/inspirations/flybook-033.png",
+    "image": "images/inspirations/flybook-033.png",
     "title": "商业·橙色·并列关系",
     "style": "商业",
     "colorScheme": "橙",
@@ -431,7 +431,7 @@
   {
     "id": 34,
     "slug": "flybook-034",
-    "image": "/images/inspirations/flybook-034.png",
+    "image": "images/inspirations/flybook-034.png",
     "title": "商业·橙色·并列关系",
     "style": "商业",
     "colorScheme": "橙",
@@ -444,7 +444,7 @@
   {
     "id": 35,
     "slug": "flybook-035",
-    "image": "/images/inspirations/flybook-035.png",
+    "image": "images/inspirations/flybook-035.png",
     "title": "赛博朋克·黑灰色·并列关系",
     "style": "赛博朋克",
     "colorScheme": "黑灰",
@@ -457,7 +457,7 @@
   {
     "id": 36,
     "slug": "flybook-036",
-    "image": "/images/inspirations/flybook-036.png",
+    "image": "images/inspirations/flybook-036.png",
     "title": "赛博朋克·黑灰色·封面封底",
     "style": "赛博朋克",
     "colorScheme": "黑灰",
@@ -470,7 +470,7 @@
   {
     "id": 37,
     "slug": "flybook-037",
-    "image": "/images/inspirations/flybook-037.png",
+    "image": "images/inspirations/flybook-037.png",
     "title": "科技·绿色·Roadmap",
     "style": "科技",
     "colorScheme": "绿",
@@ -483,7 +483,7 @@
   {
     "id": 38,
     "slug": "flybook-038",
-    "image": "/images/inspirations/flybook-038.png",
+    "image": "images/inspirations/flybook-038.png",
     "title": "创意·粉色·并列关系",
     "style": "创意",
     "colorScheme": "粉",
@@ -496,7 +496,7 @@
   {
     "id": 39,
     "slug": "flybook-039",
-    "image": "/images/inspirations/flybook-039.png",
+    "image": "images/inspirations/flybook-039.png",
     "title": "商业·橙色·并列关系",
     "style": "商业",
     "colorScheme": "橙",
@@ -509,7 +509,7 @@
   {
     "id": 40,
     "slug": "flybook-040",
-    "image": "/images/inspirations/flybook-040.png",
+    "image": "images/inspirations/flybook-040.png",
     "title": "商业·橙色·并列关系",
     "style": "商业",
     "colorScheme": "橙",
@@ -522,7 +522,7 @@
   {
     "id": 41,
     "slug": "flybook-041",
-    "image": "/images/inspirations/flybook-041.png",
+    "image": "images/inspirations/flybook-041.png",
     "title": "商业·橙色·图表",
     "style": "商业",
     "colorScheme": "橙",
@@ -535,7 +535,7 @@
   {
     "id": 42,
     "slug": "flybook-042",
-    "image": "/images/inspirations/flybook-042.png",
+    "image": "images/inspirations/flybook-042.png",
     "title": "创意·橙色·封面封底",
     "style": "创意",
     "colorScheme": "橙",
@@ -548,7 +548,7 @@
   {
     "id": 43,
     "slug": "flybook-043",
-    "image": "/images/inspirations/flybook-043.png",
+    "image": "images/inspirations/flybook-043.png",
     "title": "创意·橙色·并列关系",
     "style": "创意",
     "colorScheme": "橙",
@@ -561,7 +561,7 @@
   {
     "id": 44,
     "slug": "flybook-044",
-    "image": "/images/inspirations/flybook-044.png",
+    "image": "images/inspirations/flybook-044.png",
     "title": "商业·黄色·并列关系",
     "style": "商业",
     "colorScheme": "黄",
@@ -574,7 +574,7 @@
   {
     "id": 45,
     "slug": "flybook-045",
-    "image": "/images/inspirations/flybook-045.png",
+    "image": "images/inspirations/flybook-045.png",
     "title": "商业·黄色·总分关系",
     "style": "商业",
     "colorScheme": "黄",
@@ -587,7 +587,7 @@
   {
     "id": 46,
     "slug": "flybook-046",
-    "image": "/images/inspirations/flybook-046.png",
+    "image": "images/inspirations/flybook-046.png",
     "title": "商业·紫色·目录",
     "style": "商业",
     "colorScheme": "紫",
@@ -600,7 +600,7 @@
   {
     "id": 47,
     "slug": "flybook-047",
-    "image": "/images/inspirations/flybook-047.png",
+    "image": "images/inspirations/flybook-047.png",
     "title": "商业·紫色·并列关系",
     "style": "商业",
     "colorScheme": "紫",
@@ -613,7 +613,7 @@
   {
     "id": 48,
     "slug": "flybook-048",
-    "image": "/images/inspirations/flybook-048.png",
+    "image": "images/inspirations/flybook-048.png",
     "title": "创意·绿色·引言",
     "style": "创意",
     "colorScheme": "绿",
@@ -626,7 +626,7 @@
   {
     "id": 49,
     "slug": "flybook-049",
-    "image": "/images/inspirations/flybook-049.png",
+    "image": "images/inspirations/flybook-049.png",
     "title": "科技·蓝色·并列关系",
     "style": "科技",
     "colorScheme": "蓝",
@@ -639,7 +639,7 @@
   {
     "id": 50,
     "slug": "flybook-050",
-    "image": "/images/inspirations/flybook-050.png",
+    "image": "images/inspirations/flybook-050.png",
     "title": "科技·蓝色·并列关系",
     "style": "科技",
     "colorScheme": "蓝",
@@ -652,7 +652,7 @@
   {
     "id": 51,
     "slug": "flybook-051",
-    "image": "/images/inspirations/flybook-051.png",
+    "image": "images/inspirations/flybook-051.png",
     "title": "复古·蓝色·封面封底",
     "style": "复古",
     "colorScheme": "蓝",
@@ -665,7 +665,7 @@
   {
     "id": 52,
     "slug": "flybook-052",
-    "image": "/images/inspirations/flybook-052.png",
+    "image": "images/inspirations/flybook-052.png",
     "title": "复古·蓝色·并列关系",
     "style": "复古",
     "colorScheme": "蓝",
@@ -678,7 +678,7 @@
   {
     "id": 53,
     "slug": "flybook-053",
-    "image": "/images/inspirations/flybook-053.png",
+    "image": "images/inspirations/flybook-053.png",
     "title": "商业·橙色·目录",
     "style": "商业",
     "colorScheme": "橙",
@@ -691,7 +691,7 @@
   {
     "id": 54,
     "slug": "flybook-054",
-    "image": "/images/inspirations/flybook-054.png",
+    "image": "images/inspirations/flybook-054.png",
     "title": "商业·橙色·并列关系",
     "style": "商业",
     "colorScheme": "橙",
@@ -704,7 +704,7 @@
   {
     "id": 55,
     "slug": "flybook-055",
-    "image": "/images/inspirations/flybook-055.png",
+    "image": "images/inspirations/flybook-055.png",
     "title": "科技·绿色·总分关系",
     "style": "科技",
     "colorScheme": "绿",
@@ -717,7 +717,7 @@
   {
     "id": 56,
     "slug": "flybook-056",
-    "image": "/images/inspirations/flybook-056.png",
+    "image": "images/inspirations/flybook-056.png",
     "title": "商业·绿色·地图",
     "style": "商业",
     "colorScheme": "绿",
@@ -730,7 +730,7 @@
   {
     "id": 57,
     "slug": "flybook-057",
-    "image": "/images/inspirations/flybook-057.png",
+    "image": "images/inspirations/flybook-057.png",
     "title": "商业·绿色·产品展示",
     "style": "商业",
     "colorScheme": "绿",
@@ -743,7 +743,7 @@
   {
     "id": 58,
     "slug": "flybook-058",
-    "image": "/images/inspirations/flybook-058.png",
+    "image": "images/inspirations/flybook-058.png",
     "title": "创意·粉色·并列关系",
     "style": "创意",
     "colorScheme": "粉",
@@ -756,7 +756,7 @@
   {
     "id": 59,
     "slug": "flybook-059",
-    "image": "/images/inspirations/flybook-059.png",
+    "image": "images/inspirations/flybook-059.png",
     "title": "科技·蓝色·用户画像",
     "style": "科技",
     "colorScheme": "蓝",
@@ -769,7 +769,7 @@
   {
     "id": 60,
     "slug": "flybook-060",
-    "image": "/images/inspirations/flybook-060.png",
+    "image": "images/inspirations/flybook-060.png",
     "title": "科技·橙色·封面封底",
     "style": "科技",
     "colorScheme": "橙",
@@ -782,7 +782,7 @@
   {
     "id": 61,
     "slug": "flybook-061",
-    "image": "/images/inspirations/flybook-061.png",
+    "image": "images/inspirations/flybook-061.png",
     "title": "科技·黑灰色·封面封底",
     "style": "科技",
     "colorScheme": "黑灰",
@@ -795,7 +795,7 @@
   {
     "id": 62,
     "slug": "flybook-062",
-    "image": "/images/inspirations/flybook-062.png",
+    "image": "images/inspirations/flybook-062.png",
     "title": "商业·粉色·目录",
     "style": "商业",
     "colorScheme": "粉",
@@ -808,7 +808,7 @@
   {
     "id": 63,
     "slug": "flybook-063",
-    "image": "/images/inspirations/flybook-063.png",
+    "image": "images/inspirations/flybook-063.png",
     "title": "商业·黄色·产品展示",
     "style": "商业",
     "colorScheme": "黄",

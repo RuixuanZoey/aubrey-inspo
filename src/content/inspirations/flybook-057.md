@@ -1,6 +1,6 @@
 ---
 title: "商业·绿色·产品展示"
-image: "/images/inspirations/flybook-057.png"
+image: "images/inspirations/flybook-057.png"
 style: "商业"
 colorScheme: "绿"
 layout: "产品展示"

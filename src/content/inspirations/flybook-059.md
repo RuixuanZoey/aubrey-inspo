@@ -1,6 +1,6 @@
 ---
 title: "科技·蓝色·用户画像"
-image: "/images/inspirations/flybook-059.png"
+image: "images/inspirations/flybook-059.png"
 style: "科技"
 colorScheme: "蓝"
 layout: "用户画像"

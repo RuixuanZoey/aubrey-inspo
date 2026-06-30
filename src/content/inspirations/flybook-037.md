@@ -1,6 +1,6 @@
 ---
 title: "科技·绿色·Roadmap"
-image: "/images/inspirations/flybook-037.png"
+image: "images/inspirations/flybook-037.png"
 style: "科技"
 colorScheme: "绿"
 layout: "Roadmap"

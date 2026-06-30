@@ -1,6 +1,6 @@
 ---
 title: "复古·蓝色·封面封底"
-image: "/images/inspirations/flybook-051.png"
+image: "images/inspirations/flybook-051.png"
 style: "复古"
 colorScheme: "蓝"
 layout: "封面封底"

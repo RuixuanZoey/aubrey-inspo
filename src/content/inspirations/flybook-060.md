@@ -1,6 +1,6 @@
 ---
 title: "科技·橙色·封面封底"
-image: "/images/inspirations/flybook-060.png"
+image: "images/inspirations/flybook-060.png"
 style: "科技"
 colorScheme: "橙"
 layout: "封面封底"

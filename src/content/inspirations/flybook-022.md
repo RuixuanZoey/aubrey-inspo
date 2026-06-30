@@ -1,6 +1,6 @@
 ---
 title: "商业·绿色·封面封底"
-image: "/images/inspirations/flybook-022.png"
+image: "images/inspirations/flybook-022.png"
 style: "商业"
 colorScheme: "绿"
 layout: "封面封底"

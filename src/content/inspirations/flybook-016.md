@@ -1,6 +1,6 @@
 ---
 title: "科技·黑灰色·并列关系"
-image: "/images/inspirations/flybook-016.png"
+image: "images/inspirations/flybook-016.png"
 style: "科技"
 colorScheme: "黑灰"
 layout: "并列关系"

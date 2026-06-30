@@ -1,6 +1,6 @@
 ---
 title: "商业·黑灰色·图表"
-image: "/images/inspirations/flybook-002.png"
+image: "images/inspirations/flybook-002.png"
 style: "商业"
 colorScheme: "黑灰"
 layout: "图表"

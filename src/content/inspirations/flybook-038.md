@@ -1,6 +1,6 @@
 ---
 title: "创意·粉色·并列关系"
-image: "/images/inspirations/flybook-038.png"
+image: "images/inspirations/flybook-038.png"
 style: "创意"
 colorScheme: "粉"
 layout: "并列关系"

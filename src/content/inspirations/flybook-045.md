@@ -1,6 +1,6 @@
 ---
 title: "商业·黄色·总分关系"
-image: "/images/inspirations/flybook-045.png"
+image: "images/inspirations/flybook-045.png"
 style: "商业"
 colorScheme: "黄"
 layout: "总分关系"

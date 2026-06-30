@@ -1,6 +1,6 @@
 ---
 title: "科技·橙色·数字高亮"
-image: "/images/inspirations/flybook-025.png"
+image: "images/inspirations/flybook-025.png"
 style: "科技"
 colorScheme: "橙"
 layout: "数字高亮"

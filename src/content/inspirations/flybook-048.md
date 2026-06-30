@@ -1,6 +1,6 @@
 ---
 title: "创意·绿色·引言"
-image: "/images/inspirations/flybook-048.png"
+image: "images/inspirations/flybook-048.png"
 style: "创意"
 colorScheme: "绿"
 layout: "引言"

@@ -1,6 +1,6 @@
 ---
 title: "科技·黑灰色·产品展示"
-image: "/images/inspirations/flybook-012.png"
+image: "images/inspirations/flybook-012.png"
 style: "科技"
 colorScheme: "黑灰"
 layout: "产品展示"

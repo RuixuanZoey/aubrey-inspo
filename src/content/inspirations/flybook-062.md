@@ -1,6 +1,6 @@
 ---
 title: "商业·粉色·目录"
-image: "/images/inspirations/flybook-062.png"
+image: "images/inspirations/flybook-062.png"
 style: "商业"
 colorScheme: "粉"
 layout: "目录"

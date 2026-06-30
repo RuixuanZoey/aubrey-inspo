@@ -1,6 +1,6 @@
 ---
 title: "科技·橙色·引言"
-image: "/images/inspirations/flybook-026.png"
+image: "images/inspirations/flybook-026.png"
 style: "科技"
 colorScheme: "橙"
 layout: "引言"

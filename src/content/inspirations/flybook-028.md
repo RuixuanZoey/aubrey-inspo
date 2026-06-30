@@ -1,6 +1,6 @@
 ---
 title: "自然·绿色·并列关系"
-image: "/images/inspirations/flybook-028.png"
+image: "images/inspirations/flybook-028.png"
 style: "自然"
 colorScheme: "绿"
 layout: "并列关系"

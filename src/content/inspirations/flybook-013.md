@@ -1,6 +1,6 @@
 ---
 title: "科技·绿色·对比关系"
-image: "/images/inspirations/flybook-013.png"
+image: "images/inspirations/flybook-013.png"
 style: "科技"
 colorScheme: "绿"
 layout: "对比关系"

@@ -1,6 +1,6 @@
 ---
 title: "商业·绿色·地图"
-image: "/images/inspirations/flybook-056.png"
+image: "images/inspirations/flybook-056.png"
 style: "商业"
 colorScheme: "绿"
 layout: "地图"

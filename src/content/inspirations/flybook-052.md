@@ -1,6 +1,6 @@
 ---
 title: "复古·蓝色·并列关系"
-image: "/images/inspirations/flybook-052.png"
+image: "images/inspirations/flybook-052.png"
 style: "复古"
 colorScheme: "蓝"
 layout: "并列关系"

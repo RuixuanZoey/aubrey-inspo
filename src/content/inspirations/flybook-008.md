@@ -1,6 +1,6 @@
 ---
 title: "商业·绿色·数字高亮"
-image: "/images/inspirations/flybook-008.png"
+image: "images/inspirations/flybook-008.png"
 style: "商业"
 colorScheme: "绿"
 layout: "数字高亮"

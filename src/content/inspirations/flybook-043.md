@@ -1,6 +1,6 @@
 ---
 title: "创意·橙色·并列关系"
-image: "/images/inspirations/flybook-043.png"
+image: "images/inspirations/flybook-043.png"
 style: "创意"
 colorScheme: "橙"
 layout: "并列关系"

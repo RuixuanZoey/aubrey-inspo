@@ -1,6 +1,6 @@
 ---
 title: "科技·橙色·产品展示"
-image: "/images/inspirations/flybook-023.png"
+image: "images/inspirations/flybook-023.png"
 style: "科技"
 colorScheme: "橙"
 layout: "产品展示"

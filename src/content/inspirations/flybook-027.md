@@ -1,6 +1,6 @@
 ---
 title: "自然·绿色·数字高亮"
-image: "/images/inspirations/flybook-027.png"
+image: "images/inspirations/flybook-027.png"
 style: "自然"
 colorScheme: "绿"
 layout: "数字高亮"

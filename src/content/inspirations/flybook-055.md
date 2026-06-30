@@ -1,6 +1,6 @@
 ---
 title: "科技·绿色·总分关系"
-image: "/images/inspirations/flybook-055.png"
+image: "images/inspirations/flybook-055.png"
 style: "科技"
 colorScheme: "绿"
 layout: "总分关系"

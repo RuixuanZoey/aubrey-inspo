@@ -1,6 +1,6 @@
 ---
 title: "赛博朋克·黑灰色·并列关系"
-image: "/images/inspirations/flybook-035.png"
+image: "images/inspirations/flybook-035.png"
 style: "赛博朋克"
 colorScheme: "黑灰"
 layout: "并列关系"

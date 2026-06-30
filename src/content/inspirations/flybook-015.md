@@ -1,6 +1,6 @@
 ---
 title: "科技·紫色·图表"
-image: "/images/inspirations/flybook-015.png"
+image: "images/inspirations/flybook-015.png"
 style: "科技"
 colorScheme: "紫"
 layout: "图表"

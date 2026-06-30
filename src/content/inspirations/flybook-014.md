@@ -1,6 +1,6 @@
 ---
 title: "科技·紫色·时间线"
-image: "/images/inspirations/flybook-014.png"
+image: "images/inspirations/flybook-014.png"
 style: "科技"
 colorScheme: "紫"
 layout: "时间线"

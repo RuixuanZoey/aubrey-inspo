@@ -1,6 +1,6 @@
 ---
 title: "商业·黑灰色·递进关系"
-image: "/images/inspirations/flybook-021.png"
+image: "images/inspirations/flybook-021.png"
 style: "商业"
 colorScheme: "黑灰"
 layout: "递进关系"

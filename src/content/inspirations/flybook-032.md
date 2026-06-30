@@ -1,6 +1,6 @@
 ---
 title: "商业·橙色·图表"
-image: "/images/inspirations/flybook-032.png"
+image: "images/inspirations/flybook-032.png"
 style: "商业"
 colorScheme: "橙"
 layout: "图表"

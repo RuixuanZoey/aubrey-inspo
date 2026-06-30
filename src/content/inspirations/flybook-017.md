@@ -1,6 +1,6 @@
 ---
 title: "科技·黑灰色·图表"
-image: "/images/inspirations/flybook-017.png"
+image: "images/inspirations/flybook-017.png"
 style: "科技"
 colorScheme: "黑灰"
 layout: "图表"

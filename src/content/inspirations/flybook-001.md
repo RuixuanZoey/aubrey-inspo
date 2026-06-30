@@ -1,6 +1,6 @@
 ---
 title: "商业·黑灰色·品牌墙"
-image: "/images/inspirations/flybook-001.png"
+image: "images/inspirations/flybook-001.png"
 style: "商业"
 colorScheme: "黑灰"
 layout: "品牌墙"

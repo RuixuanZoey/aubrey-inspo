@@ -1,6 +1,6 @@
 ---
 title: "商业·紫色·并列关系"
-image: "/images/inspirations/flybook-005.png"
+image: "images/inspirations/flybook-005.png"
 style: "商业"
 colorScheme: "紫"
 layout: "并列关系"

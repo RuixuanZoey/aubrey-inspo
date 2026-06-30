@@ -1,6 +1,6 @@
 ---
 title: "科技·黑灰色·封面封底"
-image: "/images/inspirations/flybook-061.png"
+image: "images/inspirations/flybook-061.png"
 style: "科技"
 colorScheme: "黑灰"
 layout: "封面封底"
